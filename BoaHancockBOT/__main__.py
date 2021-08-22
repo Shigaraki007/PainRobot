@@ -5,14 +5,14 @@ import re
 from sys import argv
 from typing import Optional
 
-from SaitamaRobot import (ALLOW_EXCL, CERT_PATH, DONATION_LINK, LOGGER,
-                          OWNER_ID, PORT, SUPPORT_CHAT, TOKEN, URL, WEBHOOK,
+from BoaHancockBOT import (ALLOW_EXCL, CERT_PATH, DONATION_LINK, LOGGER,
+                          PIRATE_KING_ID, PORT, SUPPORT_CHAT, TOKEN, URL, WEBHOOK,
                           dispatcher, StartTime, telethn, updater, pbot)
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
-from SaitamaRobot.modules import ALL_MODULES
-from SaitamaRobot.modules.helper_funcs.chat_status import is_user_admin
-from SaitamaRobot.modules.helper_funcs.misc import paginate_modules
+from BoaHancockBOT.modules import ALL_MODULES
+from BoaHancockBOT.modules.helper_funcs.chat_status import is_user_admin
+from BoaHancockBOT.modules.helper_funcs.misc import paginate_modules
 from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
                       Update)
 from telegram.error import (BadRequest, ChatMigrated, NetworkError,
@@ -53,19 +53,19 @@ def get_readable_time(seconds: int) -> str:
 
 PM_START_TEXT = """
 Hello, {}, my name is {}! 
+I am Empress Boa Hancock! To oppose me is to die!
 I am an Anime themed group management bot with some fun extras ;)
 You can find the list of available commands with /help
 """
 
 HELP_STRINGS = """
 Hey there! My name is *{}*.
-I'm a part of [Akatsuki](https://t.me/PainRobotSupport)
+I'm a part of [StrawHats](https://t.me/BoaHancockBOTSupport)
 Have a look at the following for an idea of some of the things I can help you with.
 
 *Main* commands available:
  • /help: PM's you this message.
  • /help <module name>: PM's you info about that module.
- • /donate: information on how to donate!
  • /settings:
    • in PM: will send you your settings for all supported modules.
    • in a group: will redirect you to pm, with all that chat's settings.
