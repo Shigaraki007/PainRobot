@@ -36,37 +36,37 @@ if ENV:
     TOKEN = os.environ.get('TOKEN', None)
 
     try:
-        OWNER_ID = int(os.environ.get('OWNER_ID', None))
+        OWNER_ID = int(os.environ.get('PIRATE_KING_ID', None))
     except ValueError:
         raise Exception("Your OWNER_ID env variable is not a valid integer.")
 
     JOIN_LOGGER = os.environ.get('JOIN_LOGGER', None)
-    OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
+    OWNER_USERNAME = os.environ.get("PIRATE_KING_USERNAME", None)
 
     try:
-        DRAGONS = set(int(x) for x in os.environ.get("DRAGONS", "").split())
-        DEV_USERS = set(int(x) for x in os.environ.get("DEV_USERS", "").split())
+        YONKO = set(int(x) for x in os.environ.get("YONKO", "").split())
+        STRAWHATS = set(int(x) for x in os.environ.get("STRAWHATS", "").split())
     except ValueError:
         raise Exception(
-            "Your sudo or dev users list does not contain valid integers.")
+            "Your younko or strawhats list does not contain valid integers.")
 
     try:
-        DEMONS = set(int(x) for x in os.environ.get("DEMONS", "").split())
+        ADMIRALS = set(int(x) for x in os.environ.get("ADMIRALS", "").split())
     except ValueError:
         raise Exception(
-            "Your support users list does not contain valid integers.")
+            "Your Admiral users list does not contain valid integers.")
 
     try:
-        WOLVES = set(int(x) for x in os.environ.get("WOLVES", "").split())
+        WARLORDS = set(int(x) for x in os.environ.get("WARLORDS", "").split())
     except ValueError:
         raise Exception(
-            "Your whitelisted users list does not contain valid integers.")
+            "Your Warlords users list does not contain valid integers.")
 
     try:
-        TIGERS = set(int(x) for x in os.environ.get("TIGERS", "").split())
+        VICE_ADMIRALS = set(int(x) for x in os.environ.get("VICE_ADMIRALS", "").split())
     except ValueError:
         raise Exception(
-            "Your tiger users list does not contain valid integers.")
+            "Your Vice Admiral users list does not contain valid integers.")
 
     INFOPIC = bool(os.environ.get('INFOPIC', False))
     EVENT_LOGS = os.environ.get('EVENT_LOGS', None)
@@ -112,41 +112,41 @@ if ENV:
             "Your blacklisted chats list does not contain valid integers.")
 
 else:
-    from SaitamaRobot.config import Development as Config
+    from BoaHancockBOT.config import Development as Config
     TOKEN = Config.TOKEN
 
     try:
-        OWNER_ID = int(Config.OWNER_ID)
+        PIRATE_KING_ID = int(Config.PIRATE_KING_ID)
     except ValueError:
-        raise Exception("Your OWNER_ID variable is not a valid integer.")
+        raise Exception("Your PIRATE_KING_ID variable is not a valid integer.")
 
     JOIN_LOGGER = Config.JOIN_LOGGER
-    OWNER_USERNAME = Config.OWNER_USERNAME
+    PIRATE_KING_USERNAME = Config.PIRATE_KING_USERNAME
 
     try:
-        DRAGONS = set(int(x) for x in Config.DRAGONS or [])
-        DEV_USERS = set(int(x) for x in Config.DEV_USERS or [])
+        YONKO = set(int(x) for x in Config.YONKO or [])
+        STRAWHATS = set(int(x) for x in Config.STRAWHATS or [])
     except ValueError:
         raise Exception(
-            "Your sudo or dev users list does not contain valid integers.")
+            "Your Yonko or Strawhats user list does not contain valid integers.")
 
     try:
-        DEMONS = set(int(x) for x in Config.DEMONS or [])
+        ADMIRALS = set(int(x) for x in Config.ADMIRALS or [])
     except ValueError:
         raise Exception(
-            "Your support users list does not contain valid integers.")
+            "Your Admirals users list does not contain valid integers.")
 
     try:
-        WOLVES = set(int(x) for x in Config.WOLVES or [])
+        WARLORDS = set(int(x) for x in Config.WARLORDS or [])
     except ValueError:
         raise Exception(
-            "Your whitelisted users list does not contain valid integers.")
+            "Your Warlord users list does not contain valid integers.")
 
     try:
-        TIGERS = set(int(x) for x in Config.TIGERS or [])
+        VICE_ADMIRALS = set(int(x) for x in Config.VICE_ADMIRALS or [])
     except ValueError:
         raise Exception(
-            "Your tiger users list does not contain valid integers.")
+            "Your Vice Admiral users list does not contain valid integers.")
 
     EVENT_LOGS = Config.EVENT_LOGS
     WEBHOOK = Config.WEBHOOK
@@ -182,8 +182,8 @@ else:
         raise Exception(
             "Your blacklisted chats list does not contain valid integers.")
 
-DRAGONS.add(OWNER_ID)
-DEV_USERS.add(OWNER_ID)
+YONKO.add(PIRATE_KING_ID)
+STRAWHATS.add(PIRATE_KING_ID)
 
 REDIS = StrictRedis.from_url(REDIS_URL,decode_responses=True)
 
@@ -209,22 +209,22 @@ if not SPAMWATCH_API:
 else:
     sw = spamwatch.Client(SPAMWATCH_API)
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
-telethn = TelegramClient("Pain", API_ID, API_HASH)
-pbot = Client("PainPyro", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
+telethn = TelegramClient("Boa", API_ID, API_HASH)
+pbot = Client("BoaPyro", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 mongo_client = MongoClient(MONGO_DB_URI)
 aiohttpsession = ClientSession()
 arq = ARQ(ARQ_API, ARQ_API_URL, aiohttpsession)
-db = mongo_client.SaitamaRobot
+db = mongo_client.BoaHancockBOT
 dispatcher = updater.dispatcher
 
-DRAGONS = list(DRAGONS) + list(DEV_USERS)
-DEV_USERS = list(DEV_USERS)
-WOLVES = list(WOLVES)
-DEMONS = list(DEMONS)
-TIGERS = list(TIGERS)
+YONKO = list(YONKO) + list(STRAWHATS)
+STRAWHATS = list(STRAWHATS)
+ADMIRALS = list(ADMIRALS)
+WARLORDS = list(WARLORDS)
+VICE_ADMIRALS = list(VICE_ADMIRALS)
 
 # Load at end to ensure all prev variables have been set
-from SaitamaRobot.modules.helper_funcs.handlers import (CustomCommandHandler,
+from BoaHancockBOT.modules.helper_funcs.handlers import (CustomCommandHandler,
                                                         CustomMessageHandler,
                                                         CustomRegexHandler)
 
