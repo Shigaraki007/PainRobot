@@ -3,8 +3,8 @@ from google_trans_new import LANGUAGES, google_translator
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext, run_async
 
-from SaitamaRobot import dispatcher
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler
+from BoaHancockBOT import dispatcher
+from BoaHancockBOT.modules.disable import DisableAbleCommandHandler
 
 
 @run_async
@@ -78,8 +78,7 @@ def totranslate(update: Update, context: CallbackContext):
         update.effective_message.reply_text(
             "Reply to messages or write messages from other languages   for translating into the intended language\n\n"
             "Example: `/tr en-ml` to translate from English to Malayalam\n"
-            "Or use: `/tr ml` for automatic detection and translating it into Malayalam.\n"
-            "See [List of Language Codes](t.me/OnePunchSupport/12823) for a list of language codes.",
+            "Or use: `/tr ml` for automatic detection and translating it into Malayalam.\n",
             parse_mode="markdown",
             disable_web_page_preview=True)
     except ValueError:
