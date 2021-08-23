@@ -5,15 +5,15 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, Filters, run_async
 from telegram.utils.helpers import mention_html
 
-from SaitamaRobot import (DEV_USERS, LOGGER, OWNER_ID, DRAGONS, DEMONS, TIGERS,
-                          WOLVES, BAN_STICKER, dispatcher)
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from SaitamaRobot.modules.helper_funcs.chat_status import (
+from BoaHancockBOT import (STRAWHATS, LOGGER, PIRATE_KING_ID, YONKO, ADMIRALS, WARLORDS,
+                          VICE_ADMIRALS, BAN_STICKER, dispatcher)
+from BoaHancockBOT.modules.disable import DisableAbleCommandHandler
+from BoaHancockBOT.modules.helper_funcs.chat_status import (
     bot_admin, can_restrict, connection_status, is_user_admin,
     is_user_ban_protected, is_user_in_chat, user_admin, user_can_ban)
-from SaitamaRobot.modules.helper_funcs.extraction import extract_user_and_text
-from SaitamaRobot.modules.helper_funcs.string_handling import extract_time
-from SaitamaRobot.modules.log_channel import gloggable, loggable
+from BoaHancockBOT.modules.helper_funcs.extraction import extract_user_and_text
+from BoaHancockBOT.modules.helper_funcs.string_handling import extract_time
+from BoaHancockBOT.modules.log_channel import gloggable, loggable
 
 
 @run_async
@@ -46,33 +46,33 @@ def ban(update: Update, context: CallbackContext) -> str:
             raise
 
     if user_id == bot.id:
-        message.reply_text("Oh yeah, ban myself, noob!")
+        message.reply_text("Silence! Who do you think I am?")
         return log_message
 
-    if is_user_ban_protected(chat, user_id, member) and user not in DEV_USERS:
-        if user_id == OWNER_ID:
+    if is_user_ban_protected(chat, user_id, member) and user not in STRAWHATS:
+        if user_id == PIRATE_KING_ID:
             message.reply_text(
-                "Trying to put me against a THE DEVA Path huh?")
+                "I cant act against my love kay!!")
             return log_message
-        elif user_id in DEV_USERS:
-            message.reply_text("I can't act against my creators.")
+        elif user_id in STRAWHATS:
+            message.reply_text("Trying to put me against a StrawHat huh?")
             return log_message
-        elif user_id in DRAGONS:
+        elif user_id in YONKO:
             message.reply_text(
-                "Fighting this Asura here will put villager lives at risk.")
+                "Fighting one of the Yonko would be hard here.")
             return log_message
-        elif user_id in DEMONS:
+        elif user_id in ADMIRALS:
             message.reply_text(
-                "Bring an order from Akatsuki to fight a Human Path."
+                "Bring an order from StrawHats to fight a Admiral."
             )
             return log_message
-        elif user_id in TIGERS:
+        elif user_id in WARLORDS:
             message.reply_text(
-                "Bring an order from Akatsuki to fight a Preta Path."
+                "Bring an order from StrawHats to fight a Warlord of the Sea."
             )
             return log_message
-        elif user_id in WOLVES:
-            message.reply_text("Naraka abilities make them ban immune!")
+        elif user_id in VICE_ADMIRALS:
+            message.reply_text("Vice Admirals abilities make them ban immune!")
             return log_message
         else:
             message.reply_text("This user has immunity and cannot be banned.")
@@ -201,7 +201,7 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
             raise
 
     if user_id == bot.id:
-        message.reply_text("I'm not gonna BAN myself, are you crazy?")
+        message.reply_text("Silence! Who do you think I am?")
         return log_message
 
     if is_user_ban_protected(chat, user_id, member):
@@ -340,7 +340,7 @@ def stemp_ban(update: Update, context: CallbackContext) -> str:
 @user_admin
 @user_can_ban
 @loggable
-def almightypush(update: Update, context: CallbackContext) -> str:
+def petrify(update: Update, context: CallbackContext) -> str:
     chat = update.effective_chat
     user = update.effective_user
     message = update.effective_message
@@ -362,11 +362,11 @@ def almightypush(update: Update, context: CallbackContext) -> str:
             raise
 
     if user_id == bot.id:
-        message.reply_text("Yeahhh I'm not gonna do that.")
+        message.reply_text("Oh, how scary....")
         return log_message
 
     if is_user_ban_protected(chat, user_id):
-        message.reply_text("I really wish I could push this user....")
+        message.reply_text("Who do you think you are, anyway?")
         return log_message
 
     res = chat.unban_member(user_id)  # unban on current user = kick
@@ -388,7 +388,7 @@ def almightypush(update: Update, context: CallbackContext) -> str:
         return log
 
     else:
-        message.reply_text("Well damn, I can't push that user.")
+        message.reply_text("Well damn, I can't petrify that user.")
 
     return log_message
 
@@ -444,7 +444,7 @@ def skick(update: Update, context: CallbackContext) -> str:
 @run_async
 @bot_admin
 @can_restrict
-def pushme(update: Update, context: CallbackContext):
+def kickme(update: Update, context: CallbackContext):
     user_id = update.effective_message.from_user.id
     if is_user_admin(update.effective_chat, user_id):
         update.effective_message.reply_text(
@@ -488,7 +488,7 @@ def unban(update: Update, context: CallbackContext) -> str:
             raise
 
     if user_id == bot.id:
-        message.reply_text("How would I unban myself if I wasn't here...?")
+        message.reply_text("Not bad. Keep going. How would I unban myself if I wasn't here...?")
         return log_message
 
     if is_user_in_chat(chat, user_id):
@@ -519,7 +519,7 @@ def selfunban(context: CallbackContext, update: Update) -> str:
     message = update.effective_message
     user = update.effective_user
     bot, args = context.bot, context.args
-    if user.id not in DRAGONS or user.id not in TIGERS:
+    if user.id not in YONKO or user.id not in WARLORDS:
         return
 
     try:
@@ -557,9 +557,9 @@ def selfunban(context: CallbackContext, update: Update) -> str:
 
 __help__ = """
 *Kicks:*
- - `/almightypush <userhandle>`*:* Pushes a user out of the group, (via handle, or reply)
+ - `/petrify <userhandle>`*:* petrifies a user then kicks out of the group, (via handle, or reply)
  - `/skick <userhandle>`*:* Silently kicks a user out of the group, (via handle, or reply)
- - `/pushme`*:* Pushes the user who used the command.
+ - `/kickme`*:* Pushes the user who used the command.
  
 *Bans:*
  - `/ban <userhandle>`*:* Bans a user. (via handle, or reply)
@@ -575,12 +575,12 @@ __help__ = """
 BAN_HANDLER = CommandHandler("ban", ban)
 TEMPBAN_HANDLER = CommandHandler(["tban"], temp_ban)
 STEMPBAN_HANDLER = CommandHandler(["stban"], stemp_ban)
-KICK_HANDLER = CommandHandler("almightypush", almightypush)
+KICK_HANDLER = CommandHandler("petrify", almightypush)
 SKICK_HANDLER = CommandHandler("skick", skick)
 UNBAN_HANDLER = CommandHandler("unban", unban)
 ROAR_HANDLER = CommandHandler("roar", selfunban)
 KICKME_HANDLER = DisableAbleCommandHandler(
-    "pushme", pushme, filters=Filters.group)
+    "kickme", pushme, filters=Filters.group)
 SBAN_HANDLER = CommandHandler("sban", sban)
 
 dispatcher.add_handler(BAN_HANDLER)
