@@ -36,12 +36,12 @@ if ENV:
     TOKEN = os.environ.get('TOKEN', None)
 
     try:
-        OWNER_ID = int(os.environ.get('PIRATE_KING_ID', None))
+        PIRATE_KING_ID = int(os.environ.get('PIRATE_KING_ID', None))
     except ValueError:
         raise Exception("Your OWNER_ID env variable is not a valid integer.")
 
     JOIN_LOGGER = os.environ.get('JOIN_LOGGER', None)
-    OWNER_USERNAME = os.environ.get("PIRATE_KING_USERNAME", None)
+    PIRATE_KING_USERNAME = os.environ.get("PIRATE_KING_USERNAME", None)
 
     try:
         YONKO = set(int(x) for x in os.environ.get("YONKO", "").split())
