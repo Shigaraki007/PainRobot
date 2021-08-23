@@ -6,12 +6,12 @@ import glob
 import requests as r
 import urllib.request
 
-import SaitamaRobot.modules.fun_strings as fun_strings
-import SaitamaRobot.modules.helper_funcs.fun_strings as fun
-from SaitamaRobot import dispatcher
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
-from SaitamaRobot.modules.helper_funcs.chat_status import is_user_admin
-from SaitamaRobot.modules.helper_funcs.extraction import extract_user
+import BoaHancockBOT.modules.fun_strings as fun_strings
+import BoaHancockBOT.modules.helper_funcs.fun_strings as fun
+from BoaHancockBOT import dispatcher
+from BoaHancockBOT.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
+from BoaHancockBOT.modules.helper_funcs.chat_status import is_user_admin
+from BoaHancockBOT.modules.helper_funcs.extraction import extract_user
 from telegram import ChatPermissions, ParseMode, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, run_async, Filters
@@ -74,7 +74,7 @@ def slap(update: Update, context: CallbackContext):
     user_id = extract_user(message, args)
 
     if user_id == bot.id:
-        temp = random.choice(fun_strings.SLAP_SAITAMA_TEMPLATES)
+        temp = random.choice(fun_strings.SLAP_BOAHANCOCK_TEMPLATES)
 
         if isinstance(temp, list):
             if temp[2] == "tmute":
