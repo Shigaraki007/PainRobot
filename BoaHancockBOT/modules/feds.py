@@ -6,16 +6,16 @@ import time
 import uuid
 from io import BytesIO
 
-import SaitamaRobot.modules.sql.feds_sql as sql
-from SaitamaRobot import (EVENT_LOGS, LOGGER, OWNER_ID, DRAGONS, TIGERS, WOLVES,
+import BoaHancockBOT.modules.sql.feds_sql as sql
+from BoaHancockBOT import (EVENT_LOGS, LOGGER, PIRATE_KING_ID, YONKO, WARLORDS, VICE_ADMIRALS,
                           dispatcher)
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from SaitamaRobot.modules.helper_funcs.alternate import send_message
-from SaitamaRobot.modules.helper_funcs.chat_status import is_user_admin
-from SaitamaRobot.modules.helper_funcs.extraction import (extract_unt_fedban,
+from BoaHancockBOT.modules.disable import DisableAbleCommandHandler
+from BoaHancockBOT.modules.helper_funcs.alternate import send_message
+from BoaHancockBOT.modules.helper_funcs.chat_status import is_user_admin
+from BoaHancockBOT.modules.helper_funcs.extraction import (extract_unt_fedban,
                                                           extract_user,
                                                           extract_user_fban)
-from SaitamaRobot.modules.helper_funcs.string_handling import markdown_parser
+from BoaHancockBOT.modules.helper_funcs.string_handling import markdown_parser
 from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, MessageEntity,
                       ParseMode, Update)
 from telegram.error import BadRequest, TelegramError, Unauthorized
@@ -79,7 +79,7 @@ def new_fed(update: Update, context: CallbackContext):
         x = sql.new_fed(user.id, fed_name, fed_id)
         if not x:
             update.effective_message.reply_text(
-                "Can't federate! Please contact @OnePunchSupport if the problem persist."
+                "Can't federate! Please contact @PirateEmpressSupport if the problem persist."
             )
             return
 
@@ -117,7 +117,7 @@ def del_fed(update: Update, context: CallbackContext):
             update.effective_message.reply_text(
                 "This federation does not exist.")
             return
-        if int(getinfo['owner']) == int(user.id) or int(user.id) == OWNER_ID:
+        if int(getinfo['owner']) == int(user.id) or int(user.id) == PIRATE_KING_ID:
             fed_id = is_fed_id
         else:
             update.effective_message.reply_text(
@@ -208,7 +208,7 @@ def join_fed(update: Update, context: CallbackContext):
     administrators = chat.get_administrators()
     fed_id = sql.get_fed_id(chat.id)
 
-    if user.id in DRAGONS:
+    if user.id in YONKO:
         pass
     else:
         for admin in administrators:
@@ -233,7 +233,7 @@ def join_fed(update: Update, context: CallbackContext):
         x = sql.chat_join_fed(args[0], chat.title, chat.id)
         if not x:
             message.reply_text(
-                "Failed to join federation! Please contact @OnePunchSupport should this problem persist!"
+                "Failed to join federation! Please contact @PirateEmpressSupport should this problem persist!"
             )
             return
 
@@ -266,7 +266,7 @@ def leave_fed(update: Update, context: CallbackContext):
 
     # administrators = chat.get_administrators().status
     getuser = bot.get_chat_member(chat.id, user.id).status
-    if getuser in 'creator' or user.id in DRAGONS:
+    if getuser in 'creator' or user.id in YONKO:
         if sql.chat_leave_fed(chat.id) is True:
             get_fedlog = sql.get_fed_log(fed_id)
             if get_fedlog:
@@ -302,7 +302,7 @@ def user_join_fed(update: Update, context: CallbackContext):
 
     fed_id = sql.get_fed_id(chat.id)
 
-    if is_user_fed_owner(fed_id, user.id) or user.id in DRAGONS:
+    if is_user_fed_owner(fed_id, user.id) or user.id in YONKO:
         user_id = extract_user(msg, args)
         if user_id:
             user = bot.get_chat(user_id)
@@ -544,20 +544,20 @@ def fed_ban(update: Update, context: CallbackContext):
         message.reply_text("He is a federation admin, I can't fban him.")
         return
 
-    if user_id == OWNER_ID:
-        message.reply_text("Disaster level God cannot be fed banned!")
+    if user_id == PIRATE_KING_ID:
+        message.reply_text("My Love the Pirate King cannot be fed banned!")
         return
 
-    if int(user_id) in DRAGONS:
-        message.reply_text("Dragons cannot be fed banned!")
+    if int(user_id) in YONKO:
+        message.reply_text("Yonkō cannot be fed banned!")
         return
 
-    if int(user_id) in TIGERS:
-        message.reply_text("Tigers cannot be fed banned!")
+    if int(user_id) in WARLORDS:
+        message.reply_text("Warlords cannot be fed banned!")
         return
 
-    if int(user_id) in WOLVES:
-        message.reply_text("Wolves cannot be fed banned!")
+    if int(user_id) in VICE_ADMIRALS:
+        message.reply_text("Vice Admirals cannot be fed banned!")
         return
 
     if user_id in [777000, 1087968824]:
@@ -724,7 +724,7 @@ def fed_ban(update: Update, context: CallbackContext):
                       fban_user_uname, reason, int(time.time()))
     if not x:
         message.reply_text(
-            "Failed to ban from the federation! If this problem continues, contact @OnePunchSupport."
+            "Failed to ban from the federation! If this problem continues, contact @PirateEmpressSupport."
         )
         return
 
@@ -1198,10 +1198,10 @@ def fed_ban_list(update: Update, context: CallbackContext):
                         parse_mode=ParseMode.MARKDOWN)
                     return
                 else:
-                    if user.id not in DRAGONS:
+                    if user.id not in YONKO:
                         put_chat(chat.id, new_jam, chat_data)
             else:
-                if user.id not in DRAGONS:
+                if user.id not in YONKO:
                     put_chat(chat.id, new_jam, chat_data)
             backups = ""
             for users in getfban:
@@ -1237,10 +1237,10 @@ def fed_ban_list(update: Update, context: CallbackContext):
                         parse_mode=ParseMode.MARKDOWN)
                     return
                 else:
-                    if user.id not in DRAGONS:
+                    if user.id not in YONKO:
                         put_chat(chat.id, new_jam, chat_data)
             else:
-                if user.id not in DRAGONS:
+                if user.id not in YONKO:
                     put_chat(chat.id, new_jam, chat_data)
             backups = "id,firstname,lastname,username,reason\n"
             for users in getfban:
@@ -1253,10 +1253,10 @@ def fed_ban_list(update: Update, context: CallbackContext):
                     reason=getuserinfo['reason'])
                 backups += "\n"
             with BytesIO(str.encode(backups)) as output:
-                output.name = "saitama_fbanned_users.csv"
+                output.name = "boahancock_fbanned_users.csv"
                 update.effective_message.reply_document(
                     document=output,
-                    filename="saitama_fbanned_users.csv",
+                    filename="boahancock_fbanned_users.csv",
                     caption="Total {} User are blocked by Federation {}."
                     .format(len(getfban), info['fname']))
             return
@@ -1291,10 +1291,10 @@ def fed_ban_list(update: Update, context: CallbackContext):
                     parse_mode=ParseMode.MARKDOWN)
                 return
             else:
-                if user.id not in DRAGONS:
+                if user.id not in YONKO:
                     put_chat(chat.id, new_jam, chat_data)
         else:
-            if user.id not in DRAGONS:
+            if user.id not in YONKO:
                 put_chat(chat.id, new_jam, chat_data)
         cleanr = re.compile('<.*?>')
         cleantext = re.sub(cleanr, '', text)
@@ -1437,10 +1437,10 @@ def fed_import_bans(update: Update, context: CallbackContext):
                     parse_mode=ParseMode.MARKDOWN)
                 return
             else:
-                if user.id not in DRAGONS:
+                if user.id not in YONKO:
                     put_chat(chat.id, new_jam, chat_data)
         else:
-            if user.id not in DRAGONS:
+            if user.id not in YONKO:
                 put_chat(chat.id, new_jam, chat_data)
         #if int(int(msg.reply_to_message.document.file_size)/1024) >= 200:
         #	msg.reply_text("This file is too big!")
@@ -1494,16 +1494,16 @@ def fed_import_bans(update: Update, context: CallbackContext):
                     if is_user_fed_admin(fed_id, import_userid) is True:
                         failed += 1
                         continue
-                    if str(import_userid) == str(OWNER_ID):
+                    if str(import_userid) == str(PIRATE_KING_ID):
                         failed += 1
                         continue
-                    if int(import_userid) in DRAGONS:
+                    if int(import_userid) in YONKO:
                         failed += 1
                         continue
-                    if int(import_userid) in TIGERS:
+                    if int(import_userid) in WARLORDS:
                         failed += 1
                         continue
-                    if int(import_userid) in WOLVES:
+                    if int(import_userid) in VICE_ADMIRALS:
                         failed += 1
                         continue
                     multi_fed_id.append(fed_id)
@@ -1563,16 +1563,16 @@ def fed_import_bans(update: Update, context: CallbackContext):
                     if is_user_fed_admin(fed_id, import_userid) is True:
                         failed += 1
                         continue
-                    if str(import_userid) == str(OWNER_ID):
+                    if str(import_userid) == str(PIRATE_KING_ID):
                         failed += 1
                         continue
-                    if int(import_userid) in DRAGONS:
+                    if int(import_userid) in YONKO:
                         failed += 1
                         continue
-                    if int(import_userid) in TIGERS:
+                    if int(import_userid) in WARLORDS:
                         failed += 1
                         continue
-                    if int(import_userid) in WOLVES:
+                    if int(import_userid) in VICE_ADMIRALS:
                         failed += 1
                         continue
                     multi_fed_id.append(fed_id)
@@ -1980,7 +1980,7 @@ def is_user_fed_admin(fed_id, user_id):
     fed_admins = sql.all_fed_users(fed_id)
     if fed_admins is False:
         return False
-    if int(user_id) in fed_admins or int(user_id) == OWNER_ID:
+    if int(user_id) in fed_admins or int(user_id) == PIRATE_KING_ID:
         return True
     else:
         return False
@@ -1994,7 +1994,7 @@ def is_user_fed_owner(fed_id, user_id):
     if getfedowner is None or getfedowner is False:
         return False
     getfedowner = getfedowner['owner']
-    if str(user_id) == getfedowner or int(user_id) == OWNER_ID:
+    if str(user_id) == getfedowner or int(user_id) == PIRATE_KING_ID:
         return True
     else:
         return False
