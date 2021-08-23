@@ -1,5 +1,5 @@
 from envparse import env
-from SaitamaRobot import LOGGER
+from BoaHancockBOT import LOGGER
 import sys
 
 DEFAULTS = {
