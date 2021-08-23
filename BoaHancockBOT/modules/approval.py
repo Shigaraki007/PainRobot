@@ -5,14 +5,14 @@ from telegram.utils.helpers import mention_html
 from telegram import ParseMode , Bot, Update
 from telegram.ext import CallbackContext, CommandHandler, Filters, run_async
 
-from SaitamaRobot import dispatcher, REDIS
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from SaitamaRobot.modules.helper_funcs.chat_status import (
+from BoaHancockBOT import dispatcher, REDIS
+from BoaHancockBOT.modules.disable import DisableAbleCommandHandler
+from BoaHancockBOT.modules.helper_funcs.chat_status import (
     bot_admin,
     user_admin
 )
-from SaitamaRobot.modules.helper_funcs.extraction import extract_user_and_text
-from SaitamaRobot.modules.helper_funcs.alternate import typing_action
+from BoaHancockBOT.modules.helper_funcs.extraction import extract_user_and_text
+from BoaHancockBOT.modules.helper_funcs.alternate import typing_action
 
 
 
