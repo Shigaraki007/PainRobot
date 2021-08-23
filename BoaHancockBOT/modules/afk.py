@@ -9,14 +9,14 @@ from telegram import MessageEntity, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import Filters, MessageHandler, run_async
 
-from SaitamaRobot import dispatcher
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
-from SaitamaRobot.modules.redis.afk_redis import start_afk, end_afk, is_user_afk, afk_reason
-from SaitamaRobot import REDIS
-from SaitamaRobot.modules.users import get_user_id
+from BoaHancockBOT import dispatcher
+from BoaHancockBOT.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
+from BoaHancockBOT.modules.redis.afk_redis import start_afk, end_afk, is_user_afk, afk_reason
+from BoaHancockBOT import REDIS
+from BoaHancockBOT.modules.users import get_user_id
 
-from SaitamaRobot.modules.helper_funcs.alternate import send_message
-from SaitamaRobot.modules.helper_funcs.readable_time import get_readable_time
+from BoaHancockBOT.modules.helper_funcs.alternate import send_message
+from BoaHancockBOT.modules.helper_funcs.readable_time import get_readable_time
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
@@ -65,7 +65,7 @@ def no_longer_afk(update, context):
                 "{} Is wasting his time in the chat!",
                 "The Dead {} Came Back From His Grave!",
                 "We thought we lost you {}",
-                "Welcome Back {} now pay $100 to Get freedom or get banned!",
+                "Welcome Back {} now pay $69 to Get freedom or get banned!",
                 "{} Good job waking up now get ready for your classes!",
                 "Hey {}! Why weren't you online for such a long time?",
                 "{} why did you came back?",
@@ -155,11 +155,11 @@ def __user_info__(user_id):
     text = ""
     if is_afk:
         since_afk = get_readable_time((time.time() - float(REDIS.get(f'afk_time_{user_id}'))))
-        text = "<i>This user is currently afk (away from keyboard).</i>"
+        text = "<i>This user is currently afk.</i>"
         text += f"\n<i>Last Seen: {since_afk}</i>"
        
     else:
-        text = "<i>This user currently isn't afk (not away from keyboard).</i>"
+        text = "<i>This user currently isn't afk.</i>"
     return text
 
 
