@@ -8,16 +8,16 @@ from telegram.error import BadRequest, TelegramError
 from telegram.ext import run_async, CommandHandler, MessageHandler, Filters
 from telegram.utils.helpers import mention_html
 
-import SaitamaRobot.modules.sql.global_mutes_sql as sql
-from SaitamaRobot import dispatcher, OWNER_ID, DEV_USERS,DRAGONS,DEMONS, TIGERS,STRICT_GMUTE
-from SaitamaRobot.modules.helper_funcs.chat_status import user_admin, is_user_admin
-from SaitamaRobot.modules.helper_funcs.extraction import extract_user, extract_user_and_text
-from SaitamaRobot.modules.helper_funcs.filters import CustomFilters
-from SaitamaRobot.modules.sql.users_sql import get_all_chats
+import BoaHancockBOT.modules.sql.global_mutes_sql as sql
+from BoaHancockBOT import dispatcher, PIRATE_KING_ID, STRAWHATS, YONKO, ADMIRALS, WARLORDS, STRICT_GMUTE
+from BoaHancockBOT.modules.helper_funcs.chat_status import user_admin, is_user_admin
+from BoaHancockBOT.modules.helper_funcs.extraction import extract_user, extract_user_and_text
+from BoaHancockBOT.modules.helper_funcs.filters import CustomFilters
+from BoaHancockBOT.modules.sql.users_sql import get_all_chats
 
 GMUTE_ENFORCE_GROUP = 6
 
-OFFICERS = [OWNER_ID] + DEV_USERS + DRAGONS + DEMONS + TIGERS
+OFFICERS = [PIRATE_KING_ID] + STRAWHATS + YONKO + ADMIRALS + WARLORDS
 
 
 ERROR_DUMP = None
@@ -34,7 +34,7 @@ def gmute(update, context):
         return
 
     if int(user_id) in OFFICERS:
-        message.reply_text("I Can't Gmute My Sudo Users .")
+        message.reply_text("I Can't Gmute These Powerfull Users .")
         return
 
     if user_id == context.bot.id:
