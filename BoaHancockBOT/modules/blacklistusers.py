@@ -1,19 +1,19 @@
 # Module to blacklist users and prevent them from using commands by @TheRealPhoenix
 import html
-import SaitamaRobot.modules.sql.blacklistusers_sql as sql
-from SaitamaRobot import (DEV_USERS, OWNER_ID, DRAGONS, DEMONS, TIGERS, WOLVES,
+import BoaHancockBOT.modules.sql.blacklistusers_sql as sql
+from BoaHancockBOT import (STRAWHATS, PIRATE_KING_ID, YONKO, ADMIRALS, WARLORDS, VICE_ADMIRALS,
                           dispatcher)
-from SaitamaRobot.modules.helper_funcs.chat_status import dev_plus
-from SaitamaRobot.modules.helper_funcs.extraction import (extract_user,
+from BoaHancockBOT.modules.helper_funcs.chat_status import dev_plus
+from BoaHancockBOT.modules.helper_funcs.extraction import (extract_user,
                                                           extract_user_and_text)
-from SaitamaRobot.modules.log_channel import gloggable
+from BoaHancockBOT.modules.log_channel import gloggable
 from telegram import ParseMode, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, run_async
 from telegram.utils.helpers import mention_html
 
-BLACKLISTWHITELIST = [OWNER_ID] + DEV_USERS + DRAGONS + WOLVES + DEMONS
-BLABLEUSERS = [OWNER_ID] + DEV_USERS
+BLACKLISTWHITELIST = [PIRATE_KING_ID] + STRAWHATS + YONKO + VICE_ADMIRALS + ADMIRALS + WARLORDS
+BLABLEUSERS = [PIRATE_KING_ID] + STRAWHATS
 
 
 @run_async
@@ -35,7 +35,7 @@ def bl_user(update: Update, context: CallbackContext) -> str:
         return ""
 
     if user_id in BLACKLISTWHITELIST:
-        message.reply_text("No!\nNoticing Disasters is my job.")
+        message.reply_text("No!\nNoticing PowerFull ppl is my job.")
         return ""
 
     try:
@@ -74,7 +74,7 @@ def unbl_user(update: Update, context: CallbackContext) -> str:
         return ""
 
     if user_id == bot.id:
-        message.reply_text("I always notice myself.")
+        message.reply_text("I always notice myself and my beauty.")
         return ""
 
     try:
@@ -137,7 +137,7 @@ def __user_info__(user_id):
         return ""
     if user_id == dispatcher.bot.id:
         return ""
-    if int(user_id) in DRAGONS + TIGERS + WOLVES:
+    if int(user_id) in YONKO + WARLORDS + VICE_ADMIRALS:
         return ""
     if is_blacklisted:
         text = text.format("Yes")
