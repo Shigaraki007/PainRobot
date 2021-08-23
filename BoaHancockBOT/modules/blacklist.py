@@ -6,18 +6,18 @@ from telegram.error import BadRequest
 from telegram.ext import CommandHandler, MessageHandler, Filters, run_async
 from telegram.utils.helpers import mention_html
 
-import SaitamaRobot.modules.sql.blacklist_sql as sql
-from SaitamaRobot import dispatcher, LOGGER
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from SaitamaRobot.modules.helper_funcs.chat_status import user_admin, user_not_admin
-from SaitamaRobot.modules.helper_funcs.extraction import extract_text
-from SaitamaRobot.modules.helper_funcs.misc import split_message
-from SaitamaRobot.modules.log_channel import loggable
-from SaitamaRobot.modules.warns import warn
-from SaitamaRobot.modules.helper_funcs.string_handling import extract_time
-from SaitamaRobot.modules.connection import connected
+import BoaHancockBOT.modules.sql.blacklist_sql as sql
+from BoaHancockBOT import dispatcher, LOGGER
+from BoaHancockBOT.modules.disable import DisableAbleCommandHandler
+from BoaHancockBOT.modules.helper_funcs.chat_status import user_admin, user_not_admin
+from BoaHancockBOT.modules.helper_funcs.extraction import extract_text
+from BoaHancockBOT.modules.helper_funcs.misc import split_message
+from BoaHancockBOT.modules.log_channel import loggable
+from BoaHancockBOT.modules.warns import warn
+from BoaHancockBOT.modules.helper_funcs.string_handling import extract_time
+from BoaHancockBOT.modules.connection import connected
 
-from SaitamaRobot.modules.helper_funcs.alternate import send_message, typing_action
+from BoaHancockBOT.modules.helper_funcs.alternate import send_message, typing_action
 
 BLACKLIST_GROUP = 11
 
