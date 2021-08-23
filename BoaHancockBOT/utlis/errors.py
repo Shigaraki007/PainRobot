@@ -1,7 +1,7 @@
 import sys
 import traceback
 from functools import wraps
-from SaitamaRobot import pbot, SUPPORT_CHAT
+from BoaHancockBOT import pbot, SUPPORT_CHAT
 from pyrogram.errors.exceptions.forbidden_403 import ChatWriteForbidden
 
 
