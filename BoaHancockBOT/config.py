@@ -4,7 +4,7 @@ import os
 
 
 def get_user_list(config, key):
-    with open('{}/SaitamaRobot/{}'.format(os.getcwd(), config),
+    with open('{}/BoaHancockBot/{}'.format(os.getcwd(), config),
               'r') as json_file:
         return json.load(json_file)[key]
 
@@ -18,11 +18,11 @@ class Config(object):
     API_ID = 123456  # integer value, dont use ""
     API_HASH = "awoo"
     TOKEN = "BOT_TOKEN"  #This var used to be API_KEY but it is now TOKEN, adjust accordingly.
-    OWNER_ID = 792109647  # If you dont know, run the bot and do /id in your private chat with it, also an integer
-    OWNER_USERNAME = "Sawada"
-    SUPPORT_CHAT = 'OnePunchSupport'  #Your own group for support, do not add the @
-    JOIN_LOGGER = -1001253661229  #Prints any new group the bot is added to, prints just the name and ID.
-    EVENT_LOGS = -1001190806654  #Prints information like gbans, sudo promotes, AI enabled disable states that may help in debugging and shit
+    PIRATE_KING_ID = 1452574108  # If you dont know, run the bot and do /id in your private chat with it, also an integer
+    PIRATE_KING_USERNAME = "DegenerateUSER"
+    SUPPORT_CHAT = 'PirateEmpressSupport'  #Your own group for support, do not add the @
+    JOIN_LOGGER = -1001279661229  #Prints any new group the bot is added to, prints just the name and ID.
+    EVENT_LOGS = -1001187806654  #Prints information like gbans, sudo promotes, AI enabled disable states that may help in debugging and shit
 
     #RECOMMENDED
     SQLALCHEMY_DATABASE_URI = 'something://somewhat:user@hosturl:port/databasename'  # needed for any database modules
@@ -36,14 +36,14 @@ class Config(object):
 
     #OPTIONAL
     ##List of id's -  (not usernames) for users which have sudo access to the bot.
-    DRAGONS = get_user_list('elevated_users.json', 'sudos')
+    YONKO = get_user_list('elevated_users.json', 'Yonkō')
     ##List of id's - (not usernames) for developers who will have the same perms as the owner
-    DEV_USERS = get_user_list('elevated_users.json', 'devs')
+    STRAWHATS = get_user_list('elevated_users.json', 'Straw Hats')
     ##List of id's (not usernames) for users which are allowed to gban, but can also be banned.
-    DEMONS = get_user_list('elevated_users.json', 'supports')
+    ADMIRALS = get_user_list('elevated_users.json', 'Admirals')
     #List of id's (not usernames) for users which WONT be banned/kicked by the bot.
-    TIGERS = get_user_list('elevated_users.json', 'tigers')
-    WOLVES = get_user_list('elevated_users.json', 'whitelists')
+    WARLORDS = get_user_list('elevated_users.json', 'Warlords')
+    VICE_ADMIRALS = get_user_list('elevated_users.json', 'Vice Admirals')
     DONATION_LINK = None  # EG, paypal
     CERT_PATH = None
     PORT = 5000
