@@ -3,24 +3,24 @@ import json
 import os
 from typing import Optional
 
-from SaitamaRobot import (DEV_USERS, OWNER_ID, DRAGONS, SUPPORT_CHAT, DEMONS,
-                          TIGERS, WOLVES, dispatcher)
-from SaitamaRobot.modules.helper_funcs.chat_status import (dev_plus, sudo_plus,
+from BoaHancockBOT import (STRAWHATS, PIRATE_KING_ID, YONKO, SUPPORT_CHAT, ADMIRALS,
+                          WARLORDS, VICE_ADMIRALS, dispatcher)
+from BoaHancockBOT.modules.helper_funcs.chat_status import (dev_plus, sudo_plus,
                                                            whitelist_plus)
-from SaitamaRobot.modules.helper_funcs.extraction import extract_user
-from SaitamaRobot.modules.log_channel import gloggable
+from BoaHancockBOT.modules.helper_funcs.extraction import extract_user
+from BoaHancockBOT.modules.log_channel import gloggable
 from telegram import ParseMode, TelegramError, Update
 from telegram.ext import CallbackContext, CommandHandler, run_async
 from telegram.utils.helpers import mention_html
 
 ELEVATED_USERS_FILE = os.path.join(os.getcwd(),
-                                   'SaitamaRobot/elevated_users.json')
+                                   'BoaHancockBOT/elevated_users.json')
 
 
 def check_user_id(user_id: int, context: CallbackContext) -> Optional[str]:
     bot = context.bot
     if not user_id:
-        reply = "That...is a chat! baka ka omae?"
+        reply = "That...is a chat! "
 
     elif user_id == bot.id:
         reply = "This does not work that way."
@@ -45,7 +45,7 @@ def check_user_id(user_id: int, context: CallbackContext) -> Optional[str]:
 @run_async
 @dev_plus
 @gloggable
-def addasura(update: Update, context: CallbackContext) -> str:
+def addyonko(update: Update, context: CallbackContext) -> str:
     message = update.effective_message
     user = update.effective_user
     chat = update.effective_chat
@@ -62,32 +62,32 @@ def addasura(update: Update, context: CallbackContext) -> str:
     with open(ELEVATED_USERS_FILE, 'r') as infile:
         data = json.load(infile)
 
-    if user_id in DRAGONS:
-        message.reply_text("This member is already an Asura Path")
+    if user_id in YONKO:
+        message.reply_text("This member is already One of the Yonkō")
         return ""
 
-    if user_id in DEMONS:
-        rt += "Requested AO to promote a Human Path to Asura Path."
-        data['supports'].remove(user_id)
-        DEMONS.remove(user_id)
+    if user_id in ADMIRALS:
+        rt += "Requested Strawhats to promote an Admiral to One of the Yonkō."
+        data['admirals'].remove(user_id)
+        ADMIRALS.remove(user_id)
 
     if user_id in WOLVES:
-        rt += "Requested AO to promote a Naraka Path to Asura Path."
-        data['whitelists'].remove(user_id)
-        WOLVES.remove(user_id)
+        rt += "Requested Strawhats to promote a Vice Admiral to One of the Yonkō."
+        data['vice_admirals'].remove(user_id)
+        VICE_ADMIRALS.remove(user_id)
 
-    data['sudos'].append(user_id)
-    DRAGONS.append(user_id)
+    data['yonko'].append(user_id)
+    YONKO.append(user_id)
 
     with open(ELEVATED_USERS_FILE, 'w') as outfile:
         json.dump(data, outfile, indent=4)
 
     update.effective_message.reply_text(
-        rt + "\nSuccessfully set Path level of {} to Asura Path!".format(
+        rt + "\nSuccessfully set Power lvl of {} to One of the Yonkō!".format(
             user_member.first_name))
 
     log_message = (
-        f"#SUDO\n"
+        f"#YONKO\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
         f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
     )
@@ -101,7 +101,7 @@ def addasura(update: Update, context: CallbackContext) -> str:
 @run_async
 @sudo_plus
 @gloggable
-def addhuman(
+def addadmiral(
     update: Update,
     context: CallbackContext,
 ) -> str:
@@ -121,31 +121,31 @@ def addhuman(
     with open(ELEVATED_USERS_FILE, 'r') as infile:
         data = json.load(infile)
 
-    if user_id in DRAGONS:
-        rt += "Requested AO to deomote this Asura Path to Human Path"
-        data['sudos'].remove(user_id)
-        DRAGONS.remove(user_id)
+    if user_id in YONKO:
+        rt += "Requested Strawhats to deomote this Yonko to an Admiral"
+        data['yonko'].remove(user_id)
+        YONKO.remove(user_id)
 
-    if user_id in DEMONS:
-        message.reply_text("This user is already a Human Path.")
+    if user_id in ADMIRALS:
+        message.reply_text("This user is already an Admiral.")
         return ""
 
-    if user_id in WOLVES:
-        rt += "Requested HA to promote this Naraka Path to Asura Path."
-        data['whitelists'].remove(user_id)
-        WOLVES.remove(user_id)
+    if user_id in VICE_ADMIRALS:
+        rt += "Requested Strawhats to promote this Vice Admiral to an Admiral."
+        data['vice_admiral'].remove(user_id)
+        VICE_ADMIRALS.remove(user_id)
 
-    data['supports'].append(user_id)
-    DEMONS.append(user_id)
+    data['admirals'].append(user_id)
+    ADMIRALS.append(user_id)
 
     with open(ELEVATED_USERS_FILE, 'w') as outfile:
         json.dump(data, outfile, indent=4)
 
     update.effective_message.reply_text(
-        rt + f"\n{user_member.first_name} was added as a Human Path!")
+        rt + f"\n{user_member.first_name} was added as an Navy Admiral!")
 
     log_message = (
-        f"#SUPPORT\n"
+        f"#ADMIRAL\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
         f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
     )
@@ -159,7 +159,7 @@ def addhuman(
 @run_async
 @sudo_plus
 @gloggable
-def addnaraka(update: Update, context: CallbackContext) -> str:
+def addviceadmiral(update: Update, context: CallbackContext) -> str:
     message = update.effective_message
     user = update.effective_user
     chat = update.effective_chat
@@ -176,32 +176,32 @@ def addnaraka(update: Update, context: CallbackContext) -> str:
     with open(ELEVATED_USERS_FILE, 'r') as infile:
         data = json.load(infile)
 
-    if user_id in DRAGONS:
-        rt += "This member is an Asura Path, Demoting to Naraka Path."
-        data['sudos'].remove(user_id)
-        DRAGONS.remove(user_id)
+    if user_id in YONKO:
+        rt += "This member is One of the Yonkō, Demoting to an Vice Admiral."
+        data['yonko'].remove(user_id)
+        YONKO.remove(user_id)
 
-    if user_id in DEMONS:
-        rt += "This user is a Human Path, Demoting to Naraka Path."
-        data['supports'].remove(user_id)
-        DEMONS.remove(user_id)
+    if user_id in ADMIRALS:
+        rt += "This user is an Admiral, Demoting to an Vice Admiral."
+        data['Admirals'].remove(user_id)
+        ADMIRALS.remove(user_id)
 
-    if user_id in WOLVES:
-        message.reply_text("This user is already a Naraka Path.")
+    if user_id in VICE_ADMIRALS:
+        message.reply_text("This user is already an Vice Admiral.")
         return ""
 
-    data['whitelists'].append(user_id)
-    WOLVES.append(user_id)
+    data['vice_admirals'].append(user_id)
+    VICE_ADMIRALS.append(user_id)
 
     with open(ELEVATED_USERS_FILE, 'w') as outfile:
         json.dump(data, outfile, indent=4)
 
     update.effective_message.reply_text(
         rt +
-        f"\nSuccessfully promoted {user_member.first_name} to a Naraka Path!")
+        f"\nSuccessfully promoted {user_member.first_name} to an Vice Admiral!")
 
     log_message = (
-        f"#WHITELIST\n"
+        f"#VICE_ADMIRALT\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))} \n"
         f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
     )
@@ -215,7 +215,7 @@ def addnaraka(update: Update, context: CallbackContext) -> str:
 @run_async
 @sudo_plus
 @gloggable
-def addpreta(update: Update, context: CallbackContext) -> str:
+def addwarlord(update: Update, context: CallbackContext) -> str:
     message = update.effective_message
     user = update.effective_user
     chat = update.effective_chat
@@ -232,38 +232,38 @@ def addpreta(update: Update, context: CallbackContext) -> str:
     with open(ELEVATED_USERS_FILE, 'r') as infile:
         data = json.load(infile)
 
-    if user_id in DRAGONS:
-        rt += "This member is an Asura Path, Demoting to Preta Path."
-        data['sudos'].remove(user_id)
-        DRAGONS.remove(user_id)
+    if user_id in YONKO:
+        rt += "This member is One of the Yonko, Demoting to a Warlord."
+        data['yonko'].remove(user_id)
+        YONKO.remove(user_id)
 
-    if user_id in DEMONS:
-        rt += "This user is a Human Path, Demoting to Preta Path."
-        data['supports'].remove(user_id)
-        DEMONS.remove(user_id)
+    if user_id in ADMIRALS:
+        rt += "This user is an Admiral, Demoting to a Warlord."
+        data['admirals'].remove(user_id)
+        ADMIRALS.remove(user_id)
 
-    if user_id in WOLVES:
-        rt += "This user is a Naraka Path, Promoting to Preta Path."
-        data['whitelists'].remove(user_id)
-        WOLVES.remove(user_id)
+    if user_id in VICE_ADMIRALS:
+        rt += "This user is an Vice Admiral, Promoting to a Warlord."
+        data['vice_admirals'].remove(user_id)
+        VICE_ADMIRALS.remove(user_id)
 
-    if user_id in TIGERS:
-        message.reply_text("This user is already a Preta Path.")
+    if user_id in WARLORDS:
+        message.reply_text("This user is already a Warlord.")
         return ""
 
-    data['tigers'].append(user_id)
-    TIGERS.append(user_id)
+    data['warlords'].append(user_id)
+    WARLORDS.append(user_id)
 
     with open(ELEVATED_USERS_FILE, 'w') as outfile:
         json.dump(data, outfile, indent=4)
 
     update.effective_message.reply_text(
         rt +
-        f"\nSuccessfully promoted {user_member.first_name} to a Preta Path!"
+        f"\nSuccessfully promoted {user_member.first_name} to a Warlord!"
     )
 
     log_message = (
-        f"#TIGER\n"
+        f"#WARLORD\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))} \n"
         f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
     )
@@ -277,7 +277,7 @@ def addpreta(update: Update, context: CallbackContext) -> str:
 @run_async
 @dev_plus
 @gloggable
-def removeasura(update: Update, context: CallbackContext) -> str:
+def removeyonko(update: Update, context: CallbackContext) -> str:
     message = update.effective_message
     user = update.effective_user
     chat = update.effective_chat
@@ -293,16 +293,16 @@ def removeasura(update: Update, context: CallbackContext) -> str:
     with open(ELEVATED_USERS_FILE, 'r') as infile:
         data = json.load(infile)
 
-    if user_id in DRAGONS:
-        message.reply_text("Requested AO to demote this user to Villager")
-        DRAGONS.remove(user_id)
-        data['sudos'].remove(user_id)
+    if user_id in YONKO:
+        message.reply_text("Requested Strawhats to demote this user to a no name Pirate ")
+        YONKO.remove(user_id)
+        data['yonko'].remove(user_id)
 
         with open(ELEVATED_USERS_FILE, 'w') as outfile:
             json.dump(data, outfile, indent=4)
 
         log_message = (
-            f"#UNSUDO\n"
+            f"#DEMOTED_YONKO\n"
             f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
             f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
         )
@@ -314,14 +314,14 @@ def removeasura(update: Update, context: CallbackContext) -> str:
         return log_message
 
     else:
-        message.reply_text("This user is not an Asura Path!")
+        message.reply_text("This user is not One of the Yonkō anymore!")
         return ""
 
 
 @run_async
 @sudo_plus
 @gloggable
-def removehuman(update: Update, context: CallbackContext) -> str:
+def removeadmiral(update: Update, context: CallbackContext) -> str:
     message = update.effective_message
     user = update.effective_user
     chat = update.effective_chat
@@ -337,16 +337,16 @@ def removehuman(update: Update, context: CallbackContext) -> str:
     with open(ELEVATED_USERS_FILE, 'r') as infile:
         data = json.load(infile)
 
-    if user_id in DEMONS:
-        message.reply_text("Requested AO to demote this user to Villager")
-        DEMONS.remove(user_id)
-        data['supports'].remove(user_id)
+    if user_id in ADMIRALS:
+        message.reply_text("Requested Strawhats to demote this user to a no name Pirate")
+        ADMIRALS.remove(user_id)
+        data['admiral'].remove(user_id)
 
         with open(ELEVATED_USERS_FILE, 'w') as outfile:
             json.dump(data, outfile, indent=4)
 
         log_message = (
-            f"#UNSUPPORT\n"
+            f"#DEMOTED_ADMIRAL\n"
             f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
             f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
         )
@@ -357,14 +357,14 @@ def removehuman(update: Update, context: CallbackContext) -> str:
         return log_message
 
     else:
-        message.reply_text("This user is not a Human Path!")
+        message.reply_text("This user is not an Admiral anymore!")
         return ""
 
 
 @run_async
 @sudo_plus
 @gloggable
-def removenaraka(update: Update, context: CallbackContext) -> str:
+def removeviceadmiral(update: Update, context: CallbackContext) -> str:
     message = update.effective_message
     user = update.effective_user
     chat = update.effective_chat
@@ -380,16 +380,16 @@ def removenaraka(update: Update, context: CallbackContext) -> str:
     with open(ELEVATED_USERS_FILE, 'r') as infile:
         data = json.load(infile)
 
-    if user_id in WOLVES:
-        message.reply_text("Demoting to normal user")
-        WOLVES.remove(user_id)
-        data['whitelists'].remove(user_id)
+    if user_id in VICE_ADMIRALS:
+        message.reply_text("Demoting to a no name Pirate")
+        VICE_ADMIRALS.remove(user_id)
+        data['vice_admiral'].remove(user_id)
 
         with open(ELEVATED_USERS_FILE, 'w') as outfile:
             json.dump(data, outfile, indent=4)
 
         log_message = (
-            f"#UNWHITELIST\n"
+            f"#DEMOTED_VICEADMIRAL\n"
             f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
             f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
         )
@@ -399,14 +399,14 @@ def removenaraka(update: Update, context: CallbackContext) -> str:
 
         return log_message
     else:
-        message.reply_text("This user is not a Naraka Path!")
+        message.reply_text("This user is not an Vice Admiral anymore!")
         return ""
 
 
 @run_async
 @sudo_plus
 @gloggable
-def removepreta(update: Update, context: CallbackContext) -> str:
+def removewarlord(update: Update, context: CallbackContext) -> str:
     message = update.effective_message
     user = update.effective_user
     chat = update.effective_chat
@@ -422,16 +422,16 @@ def removepreta(update: Update, context: CallbackContext) -> str:
     with open(ELEVATED_USERS_FILE, 'r') as infile:
         data = json.load(infile)
 
-    if user_id in TIGERS:
-        message.reply_text("Demoting to normal user")
-        TIGERS.remove(user_id)
-        data['tigers'].remove(user_id)
+    if user_id in WARLORDS:
+        message.reply_text("Demoting to a no name Pirate")
+        WARLORDS.remove(user_id)
+        data['warlords'].remove(user_id)
 
         with open(ELEVATED_USERS_FILE, 'w') as outfile:
             json.dump(data, outfile, indent=4)
 
         log_message = (
-            f"#UNTIGER\n"
+            f"#DEMOTED_WARLORD\n"
             f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
             f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
         )
@@ -441,16 +441,16 @@ def removepreta(update: Update, context: CallbackContext) -> str:
 
         return log_message
     else:
-        message.reply_text("This user is not a Preta Path!")
+        message.reply_text("This user is not a Warlord anymore!")
         return ""
 
 
 @run_async
 @whitelist_plus
-def narakas(update: Update, context: CallbackContext):
-    reply = "<b>Known Naraka Paths:</b>\n"
+def viceadmirals(update: Update, context: CallbackContext):
+    reply = "<b>Known Vice Admirals:</b>\n"
     bot = context.bot
-    for each_user in WOLVES:
+    for each_user in VICE_ADMIRALS:
         user_id = int(each_user)
         try:
             user = bot.get_chat(user_id)
@@ -463,10 +463,10 @@ def narakas(update: Update, context: CallbackContext):
 
 @run_async
 @whitelist_plus
-def pretas(update: Update, context: CallbackContext):
-    reply = "<b>Known Preta Paths:</b>\n"
+def warlords(update: Update, context: CallbackContext):
+    reply = "<b>Known Warlords:</b>\n"
     bot = context.bot
-    for each_user in TIGERS:
+    for each_user in WARLORDS:
         user_id = int(each_user)
         try:
             user = bot.get_chat(user_id)
@@ -478,10 +478,10 @@ def pretas(update: Update, context: CallbackContext):
 
 @run_async
 @whitelist_plus
-def humans(update: Update, context: CallbackContext):
+def admirals(update: Update, context: CallbackContext):
     bot = context.bot
-    reply = "<b>Known Human Paths:</b>\n"
-    for each_user in DEMONS:
+    reply = "<b>Known Navy Admirals:</b>\n"
+    for each_user in ADMIRALS:
         user_id = int(each_user)
         try:
             user = bot.get_chat(user_id)
@@ -493,10 +493,10 @@ def humans(update: Update, context: CallbackContext):
 
 @run_async
 @whitelist_plus
-def asuras(update: Update, context: CallbackContext):
+def yonko(update: Update, context: CallbackContext):
     bot = context.bot
-    true_sudo = list(set(DRAGONS) - set(DEV_USERS))
-    reply = "<b>Known Asura Paths:</b>\n"
+    true_sudo = list(set(YONKO) - set(STRAWHATS))
+    reply = "<b>Known Yonkō:</b>\n"
     for each_user in true_sudo:
         user_id = int(each_user)
         try:
@@ -509,10 +509,10 @@ def asuras(update: Update, context: CallbackContext):
 
 @run_async
 @whitelist_plus
-def akatsuki(update: Update, context: CallbackContext):
+def strawhats(update: Update, context: CallbackContext):
     bot = context.bot
-    true_dev = list(set(DEV_USERS) - {OWNER_ID})
-    reply = "<b>Akatsuki Members:</b>\n"
+    true_dev = list(set(STRAWHATS) - {PIRATE_KING_ID})
+    reply = "<b>Strawhat Pirates:</b>\n"
     for each_user in true_dev:
         user_id = int(each_user)
         try:
@@ -529,11 +529,11 @@ Commands listed here only work for users with special access are mainly used for
 Group admins/group owners do not need these commands. 
 
  ╔ *List all special users:*
- ╠ `/asuras`*:* Lists all Asura Paths
- ╠ `/humans`*:* Lists all Human Paths
- ╠ `/pretas`*:* Lists all Preta Paths
- ╠ `/narakas`*:* Lists all Naraka Paths
- ╚ `/akatsuki`*:* Lists all Akatsuki Organization members
+ ╠ `/yonko`*:* Lists all Yonko (also know as SUDO)
+ ╠ `/admirals`*:* Lists all Navy Admirals (also known as Support Users)
+ ╠ `/warlords`*:* Lists all Warlords
+ ╠ `/viceadmirals`*:* Lists all Vice Admirals (also known as Whitelisted Users)
+ ╚ `/strawhats`*:* Lists all Strawhat Pirates (also known as Dev Users)
 
  ╔ *Ping:*
  ╠ `/ping`*:* gets ping time of bot to telegram server
@@ -593,43 +593,43 @@ Group admins/group owners do not need these commands.
 Visit @{SUPPORT_CHAT} for more information.
 """
 
-SUDO_HANDLER = CommandHandler(("addsudo", "addasura"), addasura)
-SUPPORT_HANDLER = CommandHandler(("addsupport", "addhuman"), addhuman)
-TIGER_HANDLER = CommandHandler(("addpreta"), addpreta)
-WHITELIST_HANDLER = CommandHandler(("addwhitelist", "addnaraka"), addnaraka)
-UNSUDO_HANDLER = CommandHandler(("removesudo", "removeasura"), removeasura)
-UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removehuman"),
-                                   removehuman)
-UNTIGER_HANDLER = CommandHandler(("removepreta"), removepreta)
-UNWHITELIST_HANDLER = CommandHandler(("removewhitelist", "removenaraka"),
-                                     removenaraka)
+SUDO_HANDLER = CommandHandler(("addsudo", "addyonko"), addyonko)
+SUPPORT_HANDLER = CommandHandler(("addsupport", "addadmiral"), addadmiral)
+WARLORD_HANDLER = CommandHandler(("addwarlord"), addwarlord)
+WHITELIST_HANDLER = CommandHandler(("addwhitelist", "addviceadmiral"), addviceadmiral)
+UNSUDO_HANDLER = CommandHandler(("removesudo", "removeyonko"), removeyonko)
+UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removeadmiral"),
+                                   removeadmiral)
+UNWARLORD_HANDLER = CommandHandler(("removewarlord"), removewarlord)
+UNWHITELIST_HANDLER = CommandHandler(("removewhitelist", "removeviceadmiral"),
+                                     removeviceadmiral)
 
-WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "narakas"],
-                                       narakas)
-TIGERLIST_HANDLER = CommandHandler(["pretas"], pretas)
-SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "humans"], humans)
-SUDOLIST_HANDLER = CommandHandler(["sudolist", "asuras"], asuras)
-DEVLIST_HANDLER = CommandHandler(["devlist", "akatsuki"], akatsuki)
+WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "viceadmirals"],
+                                       viceadmirals)
+WARLORDLIST_HANDLER = CommandHandler(["warlords"], warlords)
+SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "admirals"], admirals)
+SUDOLIST_HANDLER = CommandHandler(["sudolist", "yonko"], yonko)
+DEVLIST_HANDLER = CommandHandler(["devlist", "strawhats"], strawhats)
 
 dispatcher.add_handler(SUDO_HANDLER)
 dispatcher.add_handler(SUPPORT_HANDLER)
-dispatcher.add_handler(TIGER_HANDLER)
+dispatcher.add_handler(WARLORD_HANDLER)
 dispatcher.add_handler(WHITELIST_HANDLER)
 dispatcher.add_handler(UNSUDO_HANDLER)
 dispatcher.add_handler(UNSUPPORT_HANDLER)
-dispatcher.add_handler(UNTIGER_HANDLER)
+dispatcher.add_handler(UNWARLORD_HANDLER)
 dispatcher.add_handler(UNWHITELIST_HANDLER)
 
 dispatcher.add_handler(WHITELISTLIST_HANDLER)
-dispatcher.add_handler(TIGERLIST_HANDLER)
+dispatcher.add_handler(WARLORDLIST_HANDLER)
 dispatcher.add_handler(SUPPORTLIST_HANDLER)
 dispatcher.add_handler(SUDOLIST_HANDLER)
 dispatcher.add_handler(DEVLIST_HANDLER)
 
-__mod_name__ = "Disasters"
+__mod_name__ = "Power lvl"
 __handlers__ = [
-    SUDO_HANDLER, SUPPORT_HANDLER, TIGER_HANDLER, WHITELIST_HANDLER,
-    UNSUDO_HANDLER, UNSUPPORT_HANDLER, UNTIGER_HANDLER, UNWHITELIST_HANDLER,
-    WHITELISTLIST_HANDLER, TIGERLIST_HANDLER, SUPPORTLIST_HANDLER,
+    SUDO_HANDLER, SUPPORT_HANDLER, WARLORD_HANDLER, WHITELIST_HANDLER,
+    UNSUDO_HANDLER, UNSUPPORT_HANDLER, UNWARLORD_HANDLER, UNWHITELIST_HANDLER,
+    WHITELISTLIST_HANDLER, WARLORDLIST_HANDLER, SUPPORTLIST_HANDLER,
     SUDOLIST_HANDLER, DEVLIST_HANDLER
 ]
