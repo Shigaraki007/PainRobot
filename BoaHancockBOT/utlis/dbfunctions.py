@@ -1,4 +1,4 @@
-from SaitamaRobot import db
+from BoaHancockBOT import db
 from typing import Dict, List, Union
 
 karmadb = db.karma
