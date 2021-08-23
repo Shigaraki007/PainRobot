@@ -77,12 +77,9 @@ And the following:
     dispatcher.bot.first_name, ""
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
 
-SAITAMA_IMG = "https://telegra.ph/file/9127957b0437ed3a64332.jpg"
+BOA_IMG = "https://telegra.ph/file/b965c6d1775539f0da3ff.jpg"
 
-DONATE_STRING = """Heya, glad to hear you want to donate!
-Saitama is hosted on one of Kaizoku's Servers and doesn't require any donations as of now but \
-You can donate to the original writer of the Base code, Paul
-There are two ways of supporting him; [PayPal](paypal.me/PaulSonOfLars), or [Monzo](monzo.me/paulnionvestergaardlarsen)."""
+DONATE_STRING = """No Donations needed k bye"""
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -95,7 +92,7 @@ CHAT_SETTINGS = {}
 USER_SETTINGS = {}
 
 for module_name in ALL_MODULES:
-    imported_module = importlib.import_module("SaitamaRobot.modules." +
+    imported_module = importlib.import_module("BoaHancockBOT.modules." +
                                               module_name)
     if not hasattr(imported_module, "__mod_name__"):
         imported_module.__mod_name__ = imported_module.__name__
@@ -172,8 +169,8 @@ def start(update: Update, context: CallbackContext):
                     ]]))
             elif args[0].lower() == "markdownhelp":
                 IMPORTED["extras"].markdown_help_sender(update)
-            elif args[0].lower() == "disasters":
-                IMPORTED["disasters"].send_disasters(update)
+            elif args[0].lower() == "powerlvl":
+                IMPORTED["powerlvl"].send_powerlvl(update)
             elif args[0].lower().startswith("stngs_"):
                 match = re.match("stngs_(.*)", args[0].lower())
                 chat = dispatcher.bot.getChat(match.group(1))
@@ -191,7 +188,7 @@ def start(update: Update, context: CallbackContext):
         else:
             first_name = update.effective_user.first_name
             update.effective_message.reply_photo(
-                SAITAMA_IMG,
+                BOA_IMG,
                 PM_START_TEXT.format(
                     escape_markdown(first_name),
                     escape_markdown(context.bot.first_name)),
@@ -200,7 +197,7 @@ def start(update: Update, context: CallbackContext):
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            text="➕ Add Pain To Your Group!",
+                            text="➕ Add Boa Hancock To Your Group!",
                             url="t.me/{}?startgroup=true".format(
                                 context.bot.username))
                      ],
@@ -210,7 +207,7 @@ def start(update: Update, context: CallbackContext):
                              url=f"https://t.me/{SUPPORT_CHAT}"),
                          InlineKeyboardButton(
                              text="🔔Updates Channel",
-                             url="https://t.me/PainRobotUpdates")
+                             url="https://t.me/BoaHancockUPDATES")
                      ],
                      [
                          InlineKeyboardButton(
@@ -224,7 +221,7 @@ def start(update: Update, context: CallbackContext):
                      ]]))
     else:
         update.effective_message.reply_text(
-            "I'm online!\n<b>Up since:</b> <code>{}</code>".format(uptime),
+            "<b>I am Empress Boa Hancock! To oppose me is to die!,</b>\n I'm online!\n<b>Up since:</b> <code>{}</code>".format(uptime),
             parse_mode=ParseMode.HTML)
 
 
@@ -497,9 +494,9 @@ def donate(update: Update, context: CallbackContext):
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True)
 
-        if OWNER_ID != 254318997 and DONATION_LINK:
+        if PIRATE_KING_ID != 254318997 and DONATION_LINK:
             update.effective_message.reply_text(
-                "You can also donate to the person currently running me "
+                "For now no donations instead you can join the group link below "
                 "[here]({})".format(DONATION_LINK),
                 parse_mode=ParseMode.MARKDOWN)
 
@@ -541,7 +538,7 @@ def main():
 
     if SUPPORT_CHAT is not None and isinstance(SUPPORT_CHAT, str):
         try:
-            dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}", "[This World Shall Know Pain!](https://telegra.ph/file/b5e2d0c7cee078e059d66.mp4)", parse_mode=ParseMode.MARKDOWN)
+            dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}", "[Come here! Let me show you the strength of the Kuja!](https://telegra.ph/file/7faa75fafaf7085afc106.mp4)", parse_mode=ParseMode.MARKDOWN)
         except Unauthorized:
             LOGGER.warning(
                 "Bot isnt able to send message to support_chat, go and check!")
@@ -585,7 +582,7 @@ def main():
             updater.bot.set_webhook(url=URL + TOKEN)
 
     else:
-        LOGGER.info("Pain Is Now Online!")
+        LOGGER.info("Boa Hancock Is Now Online!")
         updater.start_polling(timeout=15, read_latency=4, clean=True)
    
     if len(argv) not in (1, 3, 4):
