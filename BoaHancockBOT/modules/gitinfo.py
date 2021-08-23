@@ -1,8 +1,8 @@
 
 import aiohttp
 from pyrogram import filters
-from SaitamaRobot import pbot
-from SaitamaRobot.utlis.errors import capture_err
+from BoaHancockBOT import pbot
+from BoaHancockBOT.utlis.errors import capture_err
 
 @pbot.on_message(filters.command('gitinfo'))
 @capture_err
