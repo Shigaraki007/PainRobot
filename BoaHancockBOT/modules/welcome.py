@@ -5,32 +5,32 @@ import time
 from functools import partial
 from contextlib import suppress
 
-import SaitamaRobot.modules.sql.welcome_sql as sql
-import SaitamaRobot
-from SaitamaRobot import (
-    DEV_USERS,
+import BoaHancockBOT.modules.sql.welcome_sql as sql
+import BoaHancockBOT
+from BoaHancockBOT import (
+    STRAWHATS,
     LOGGER,
-    OWNER_ID,
-    DRAGONS,
-    DEMONS,
-    TIGERS,
-    WOLVES,
+    PIRATE_KING_ID,
+    YONKO,
+    ADMIRALS,
+    WARLORDS,
+    VICE_ADMIRALS,
     sw,
     dispatcher,
     JOIN_LOGGER,
 )
-from SaitamaRobot.modules.helper_funcs.chat_status import (
+from BoaHancockBOT.modules.helper_funcs.chat_status import (
     is_user_ban_protected,
     user_admin,
 )
-from SaitamaRobot.modules.helper_funcs.misc import build_keyboard, revert_buttons
-from SaitamaRobot.modules.helper_funcs.msg_types import get_welcome_type
-from SaitamaRobot.modules.helper_funcs.string_handling import (
+from BoaHancockBOT.modules.helper_funcs.misc import build_keyboard, revert_buttons
+from BoaHancockBOT.modules.helper_funcs.msg_types import get_welcome_type
+from BoaHancockBOT.modules.helper_funcs.string_handling import (
     escape_invalid_curly_brackets,
     markdown_parser,
 )
-from SaitamaRobot.modules.log_channel import loggable
-from SaitamaRobot.modules.sql.global_bans_sql import is_user_gbanned
+from BoaHancockBOT.modules.log_channel import loggable
+from BoaHancockBOT.modules.sql.global_bans_sql import is_user_gbanned
 from telegram import (
     ChatPermissions,
     InlineKeyboardButton,
@@ -163,7 +163,7 @@ def new_member(update: Update, context: CallbackContext):
 
     for new_mem in new_members:
 
-        if new_mem.id == bot.id and not SaitamaRobot.ALLOW_CHATS:
+        if new_mem.id == bot.id and not BoaHancockBOT.ALLOW_CHATS:
             with suppress(BadRequest):
                 update.effective_message.reply_text(f"Groups are disabled for {bot.first_name}, I'm outta here.")
             bot.leave_chat(update.effective_chat.id)
@@ -197,9 +197,9 @@ def new_member(update: Update, context: CallbackContext):
                 reply = False
 
             # Give the owner a special welcome
-            if new_mem.id == OWNER_ID:
+            if new_mem.id == PIRATE_KING_ID:
                 update.effective_message.reply_text(
-                    "The Almighty God, PAIN Is Here! Hail Him Or Get Almighty Pushed!", reply_to_message_id=reply,
+                    "The Future Pirate King and my Love is Here! kay!! Hail Him Or Get Petrified!", reply_to_message_id=reply,
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
@@ -209,9 +209,9 @@ def new_member(update: Update, context: CallbackContext):
                 continue
 
             # Welcome Devs
-            elif new_mem.id in DEV_USERS:
+            elif new_mem.id in STRAWHATS:
                 update.effective_message.reply_text(
-                    "Be Cool! A member of the Akatsuki Organization just joined.",
+                    "Be Cool! A member of the StrawHats just joined.",
                     reply_to_message_id=reply,
                 )
                 welcome_log = (
@@ -222,9 +222,9 @@ def new_member(update: Update, context: CallbackContext):
                 continue
 
             # Welcome Sudos
-            elif new_mem.id in DRAGONS:
+            elif new_mem.id in YONKO:
                 update.effective_message.reply_text(
-                    "Whoa! An Asura Path just joined! Stay Alert!",
+                    "Whoa! One of the Yonkō just joined! Stay Alert!",
                     reply_to_message_id=reply,
                 )
                 welcome_log = (
@@ -235,9 +235,9 @@ def new_member(update: Update, context: CallbackContext):
                 continue
 
             # Welcome Support
-            elif new_mem.id in DEMONS:
+            elif new_mem.id in ADMIRALS:
                 update.effective_message.reply_text(
-                    "Huh! Someone with a Human Path level just joined!",
+                    "Huh! An Marine Admiral just joined!",
                     reply_to_message_id=reply,
                 )
                 welcome_log = (
@@ -248,9 +248,9 @@ def new_member(update: Update, context: CallbackContext):
                 continue
 
             # Welcome Whitelisted
-            elif new_mem.id in TIGERS:
+            elif new_mem.id in WARLORDS:
                 update.effective_message.reply_text(
-                    "OwO! A Preta Path just joined!", reply_to_message_id=reply,
+                    "Wow! A Warlord Of The Sea just joined!", reply_to_message_id=reply,
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
@@ -260,9 +260,9 @@ def new_member(update: Update, context: CallbackContext):
                 continue
 
             # Welcome Tigers
-            elif new_mem.id in WOLVES:
+            elif new_mem.id in VICE_ADMIRAL:
                 update.effective_message.reply_text(
-                    "ÒwÓ! A Naraka Path just joined!", reply_to_message_id=reply,
+                    "ÒwÓ! A Marine Vice Admiral just joined!", reply_to_message_id=reply,
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
@@ -564,16 +564,16 @@ def left_member(update: Update, context: CallbackContext):
                 return
 
             # Give the owner a special goodbye
-            if left_mem.id == OWNER_ID:
+            if left_mem.id == PIRATE_KING_ID:
                 update.effective_message.reply_text(
-                    "The Almighty Pain Is Leaving Now! But!,He Will Be Back Again!", reply_to_message_id=reply,
+                    "The Future King Of Pirates is leaving. Me sed my lob is going ;-;", reply_to_message_id=reply,
                 )
                 return
 
             # Give the devs a special goodbye
-            elif left_mem.id in DEV_USERS:
+            elif left_mem.id in STRAWHATS:
                 update.effective_message.reply_text(
-                    "See you later at the Akatsuki Organization!",
+                    "See you later at the Thousand Sunny",
                     reply_to_message_id=reply,
                 )
                 return
