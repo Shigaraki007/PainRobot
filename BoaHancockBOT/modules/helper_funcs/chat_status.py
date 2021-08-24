@@ -1,8 +1,8 @@
 from functools import wraps
 from cachetools import TTLCache
 from threading import RLock
-from SaitamaRobot import (DEL_CMDS, DEV_USERS, DRAGONS, SUPPORT_CHAT, DEMONS,
-                          TIGERS, WOLVES, dispatcher)
+from BoaHancockBOT import (DEL_CMDS, STRAWHATS, YONKO, SUPPORT_CHAT, ADMIRALS,
+                          WARLORDS, VICE_ADMIRALS, dispatcher)
 
 from telegram import Chat, ChatMember, ParseMode, Update
 from telegram.ext import CallbackContext
@@ -16,21 +16,21 @@ def is_whitelist_plus(chat: Chat,
                       user_id: int,
                       member: ChatMember = None) -> bool:
     return any(user_id in user
-               for user in [WOLVES, TIGERS, DEMONS, DRAGONS, DEV_USERS])
+               for user in [VICE_ADMIRALS, WARLORDS, ADMIRALS, YONKO, STRAWHATS])
 
 
 def is_support_plus(chat: Chat,
                     user_id: int,
                     member: ChatMember = None) -> bool:
-    return user_id in DEMONS or user_id in DRAGONS or user_id in DEV_USERS
+    return user_id in ADMIRALS or user_id in YONKO or user_id in STRAWHATS
 
 
 def is_sudo_plus(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
-    return user_id in DRAGONS or user_id in DEV_USERS
+    return user_id in YONKO or user_id in STRAWHATS
 
 
 def is_user_admin(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
-    if (chat.type == 'private' or user_id in DRAGONS or user_id in DEV_USERS or
+    if (chat.type == 'private' or user_id in YONKO or user_id in STRAWHATS or
             chat.all_members_are_administrators or
             user_id in [777000, 1087968824
                        ]):  # Count telegram and Group Anonymous as admin
@@ -73,8 +73,8 @@ def can_delete(chat: Chat, bot_id: int) -> bool:
 def is_user_ban_protected(chat: Chat,
                           user_id: int,
                           member: ChatMember = None) -> bool:
-    if (chat.type == 'private' or user_id in DRAGONS or user_id in DEV_USERS or
-            user_id in WOLVES or user_id in TIGERS or
+    if (chat.type == 'private' or user_id in YONKO or user_id in STRAWHATS or
+            user_id in VICE_ADMIRALS or user_id in WARLORDS or
             chat.all_members_are_administrators or
             user_id in [777000, 1087968824
                        ]):  # Count telegram and Group Anonymous as admin
@@ -99,7 +99,7 @@ def dev_plus(func):
         bot = context.bot
         user = update.effective_user
 
-        if user.id in DEV_USERS:
+        if user.id in STRAWHATS:
             return func(update, context, *args, **kwargs)
         elif not user:
             pass
@@ -130,7 +130,7 @@ def sudo_plus(func):
             update.effective_message.delete()
         else:
             update.effective_message.reply_text(
-                "Who dis non-admin telling me what to do? You want a punch?")
+                "Who do you think you are, anyway? want me to petrify you?!")
 
     return is_sudo_plus_func
 
@@ -165,7 +165,7 @@ def whitelist_plus(func):
             return func(update, context, *args, **kwargs)
         else:
             update.effective_message.reply_text(
-                f"You don't have access to use this.\nVisit @{SUPPORT_CHAT}")
+                f"You don't have enough power to use this.\nVisit @{SUPPORT_CHAT}")
 
     return is_whitelist_plus_func
 
@@ -186,7 +186,7 @@ def user_admin(func):
             update.effective_message.delete()
         else:
             update.effective_message.reply_text(
-                "Who dis non-admin telling me what to do? You want a punch?")
+                "Who do you think you are, anyway? want me to petrify you?!")
 
     return is_admin
 
@@ -236,9 +236,9 @@ def bot_admin(func):
         message_chat_title = update.effective_message.chat.title
 
         if update_chat_title == message_chat_title:
-            not_admin = "I'm not admin! - REEEEEE"
+            not_admin = "Make me an Admin first bruh-"
         else:
-            not_admin = f"I'm not admin in <b>{update_chat_title}</b>! - REEEEEE"
+            not_admin = f"I'm not admin in <b>{update_chat_title}</b>! - Bruh-"
 
         if is_bot_admin(chat, bot.id):
             return func(update, context, *args, **kwargs)
@@ -355,9 +355,9 @@ def user_can_ban(func):
         user = update.effective_user.id
         member = update.effective_chat.get_member(user)
         if not (member.can_restrict_members or member.status == "creator"
-               ) and not user in DRAGONS and user not in [777000, 1087968824]:
+               ) and not user in YONKO and user not in [777000, 1087968824]:
             update.effective_message.reply_text(
-                "Sorry son, but you're not worthy to wield the banhammer.")
+                "What do you think you are doing ?? sorry you cant !")
             return ""
         return func(update, context, *args, **kwargs)
 
@@ -393,6 +393,6 @@ def connection_status(func):
 
 
 # Workaround for circular import with connection.py
-from SaitamaRobot.modules import connection
+from BoaHancockBOT.modules import connection
 
 connected = connection.connected
