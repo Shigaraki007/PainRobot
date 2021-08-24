@@ -1,9 +1,9 @@
 from typing import Optional
 
-import SaitamaRobot.modules.sql.rules_sql as sql
-from SaitamaRobot import dispatcher
-from SaitamaRobot.modules.helper_funcs.chat_status import user_admin
-from SaitamaRobot.modules.helper_funcs.string_handling import markdown_parser
+import BoaHancockBOT.modules.sql.rules_sql as sql
+from BoaHancockBOT import dispatcher
+from BoaHancockBOT.modules.helper_funcs.chat_status import user_admin
+from BoaHancockBOT.modules.helper_funcs.string_handling import markdown_parser
 from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, Message,
                       ParseMode, Update, User)
 from telegram.error import BadRequest
