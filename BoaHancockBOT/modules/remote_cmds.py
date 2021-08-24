@@ -1,8 +1,8 @@
-from SaitamaRobot import dispatcher
-from SaitamaRobot.modules.helper_funcs.chat_status import (
+from BoaHancockBOT import dispatcher
+from BoaHancockBOT.modules.helper_funcs.chat_status import (
     bot_admin, is_bot_admin, is_user_ban_protected, is_user_in_chat)
-from SaitamaRobot.modules.helper_funcs.extraction import extract_user_and_text
-from SaitamaRobot.modules.helper_funcs.filters import CustomFilters
+from BoaHancockBOT.modules.helper_funcs.extraction import extract_user_and_text
+from BoaHancockBOT.modules.helper_funcs.filters import CustomFilters
 from telegram import Update, ChatPermissions
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, run_async
@@ -459,7 +459,7 @@ RBAN_HANDLER = CommandHandler("rban", rban, filters=CustomFilters.sudo_filter)
 RUNBAN_HANDLER = CommandHandler(
     "runban", runban, filters=CustomFilters.sudo_filter)
 RKICK_HANDLER = CommandHandler(
-    "rpunch", rkick, filters=CustomFilters.sudo_filter)
+    "rkick", rkick, filters=CustomFilters.sudo_filter)
 RMUTE_HANDLER = CommandHandler(
     "rmute", rmute, filters=CustomFilters.sudo_filter)
 RUNMUTE_HANDLER = CommandHandler(
