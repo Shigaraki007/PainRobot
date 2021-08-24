@@ -1,10 +1,10 @@
 import html
 
-from SaitamaRobot import (LOGGER, DRAGONS, TIGERS, WOLVES, dispatcher)
-from SaitamaRobot.modules.helper_funcs.chat_status import (user_admin,
+from BoaHancockBOT import (LOGGER, YONKO, WARLORDS, VICE_ADMIRALS, dispatcher)
+from BoaHancockBOT.modules.helper_funcs.chat_status import (user_admin,
                                                            user_not_admin)
-from SaitamaRobot.modules.log_channel import loggable
-from SaitamaRobot.modules.sql import reporting_sql as sql
+from BoaHancockBOT.modules.log_channel import loggable
+from BoaHancockBOT.modules.sql import reporting_sql as sql
 from telegram import (Chat, InlineKeyboardButton, InlineKeyboardMarkup,
                       ParseMode, Update)
 from telegram.error import BadRequest, Unauthorized
@@ -13,7 +13,7 @@ from telegram.ext import (CallbackContext, CallbackQueryHandler, CommandHandler,
 from telegram.utils.helpers import mention_html
 
 REPORT_GROUP = 12
-REPORT_IMMUNE_USERS = DRAGONS + TIGERS + WOLVES
+REPORT_IMMUNE_USERS = YONKO + WARLORDS + VICE_ADMIRALS
 
 
 @run_async
@@ -88,7 +88,7 @@ def report(update: Update, context: CallbackContext) -> str:
             return ""
 
         if reported_user.id in REPORT_IMMUNE_USERS:
-            message.reply_text("Uh? You reporting a disaster?")
+            message.reply_text("Uh? You reporting a that guy? lol!")
             return ""
 
         if chat.username and chat.type == Chat.SUPERGROUP:
