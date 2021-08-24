@@ -1,7 +1,7 @@
 import speedtest
-from SaitamaRobot import DEV_USERS, dispatcher
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from SaitamaRobot.modules.helper_funcs.chat_status import dev_plus
+from BoaHancockBOT import STRAWHATS, dispatcher
+from BoaHancockBOT.modules.disable import DisableAbleCommandHandler
+from BoaHancockBOT.modules.helper_funcs.chat_status import dev_plus
 from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
                       Update)
 from telegram.ext import CallbackContext, CallbackQueryHandler, run_async
@@ -26,7 +26,7 @@ def speedtestxyz(update: Update, context: CallbackContext):
 def speedtestxyz_callback(update: Update, context: CallbackContext):
     query = update.callback_query
 
-    if query.from_user.id in DEV_USERS:
+    if query.from_user.id in STRAWHATS:
         msg = update.effective_message.edit_text('Running a speedtest....')
         speed = speedtest.Speedtest()
         speed.get_best_server()
