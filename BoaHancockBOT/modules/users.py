@@ -1,10 +1,10 @@
 from io import BytesIO
 from time import sleep
 
-import SaitamaRobot.modules.sql.users_sql as sql
-from SaitamaRobot import DEV_USERS, LOGGER, OWNER_ID, dispatcher
-from SaitamaRobot.modules.helper_funcs.chat_status import dev_plus, sudo_plus
-from SaitamaRobot.modules.sql.users_sql import get_all_users
+import BoaHancockBOT.modules.sql.users_sql as sql
+from BoaHancockBOT import STRAWHATS, LOGGER, PIRATE_KING_ID, dispatcher
+from BoaHancockBOT.modules.helper_funcs.chat_status import dev_plus, sudo_plus
+from BoaHancockBOT.modules.sql.users_sql import get_all_users
 from telegram import TelegramError, Update
 from telegram.error import BadRequest
 from telegram.ext import (CallbackContext, CommandHandler, Filters,
@@ -12,7 +12,7 @@ from telegram.ext import (CallbackContext, CommandHandler, Filters,
 
 USERS_GROUP = 4
 CHAT_GROUP = 5
-DEV_AND_MORE = DEV_USERS.append(int(OWNER_ID))
+DEV_AND_MORE = STRAWHATS.append(int(PIRATE_KING_ID))
 
 
 def get_user_id(username):
