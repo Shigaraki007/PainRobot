@@ -1,11 +1,11 @@
-from BoaHancockBOT.modules.helper_funcs.telethn import WARLORDS, telethn
+from BoaHancockBOT.modules.helper_funcs.telethn import IMMUNE_USERS, telethn
 from BoaHancockBOT import YONKO
 from telethon.tl.types import ChannelParticipantsAdmins
 
 
 async def user_is_ban_protected(user_id: int, message):
     status = False
-    if message.is_private or user_id in (WARLORDS):
+    if message.is_private or user_id in (IMMUNE_USERS):
         return True
 
     async for user in telethn.iter_participants(
