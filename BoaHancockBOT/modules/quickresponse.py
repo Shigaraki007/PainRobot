@@ -17,10 +17,10 @@ from asyncio import sleep
 from datetime import datetime
 from requests import get, post
 
-from SaitamaRobot import telethn as client
-from SaitamaRobot import *
-from SaitamaRobot import telethn as tbot
-from SaitamaRobot.events import register
+from BoaHancockBOT import telethn as client
+from BoaHancockBOT import *
+from BoaHancockBOT import telethn as tbot
+from BoaHancockBOT.events import register
 
 @register(pattern=r"^/getqr$")
 async def parseqr(qr_e):
