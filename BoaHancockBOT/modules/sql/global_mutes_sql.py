@@ -2,7 +2,7 @@ import threading
 
 from sqlalchemy import Column, UnicodeText, Integer, String, Boolean
 
-from SaitamaRobot.modules.sql import BASE, SESSION
+from BoaHancockBOT.modules.sql import BASE, SESSION
 
 
 class GloballyMutedUsers(BASE):
