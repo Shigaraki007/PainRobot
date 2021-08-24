@@ -9,20 +9,20 @@ from telegram.utils.helpers import mention_html
 
 from alphabet_detector import AlphabetDetector
 
-import SaitamaRobot.modules.sql.locks_sql as sql
-from SaitamaRobot import dispatcher, DRAGONS, LOGGER
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from SaitamaRobot.modules.helper_funcs.chat_status import (
+import BoaHancockBOT.modules.sql.locks_sql as sql
+from BoaHancockBOT import dispatcher, YONKO, LOGGER
+from BoaHancockBOT.modules.disable import DisableAbleCommandHandler
+from BoaHancockBOT.modules.helper_funcs.chat_status import (
     can_delete,
     is_user_admin,
     user_not_admin,
     is_bot_admin,
     user_admin,
 )
-from SaitamaRobot.modules.log_channel import loggable
-from SaitamaRobot.modules.connection import connected
+from BoaHancockBOT.modules.log_channel import loggable
+from BoaHancockBOT.modules.connection import connected
 
-from SaitamaRobot.modules.helper_funcs.alternate import send_message, typing_action
+from BoaHancockBOT.modules.helper_funcs.alternate import send_message, typing_action
 
 ad = AlphabetDetector()
 
@@ -157,7 +157,7 @@ def restr_members(bot,
                   other=False,
                   previews=False):
     for mem in members:
-        if mem.user in DRAGONS:
+        if mem.user in YONKO:
             pass
         try:
             bot.restrict_chat_member(
