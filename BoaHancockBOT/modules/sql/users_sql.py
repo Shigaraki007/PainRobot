@@ -1,7 +1,7 @@
 import threading
 
-from SaitamaRobot import dispatcher
-from SaitamaRobot.modules.sql import BASE, SESSION
+from BoaHancockBOT import dispatcher
+from BoaHancockBOT.modules.sql import BASE, SESSION
 from sqlalchemy import (Column, ForeignKey, Integer, String, UnicodeText,
                         UniqueConstraint, func)
 
