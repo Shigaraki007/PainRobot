@@ -14,17 +14,17 @@ from telegram.ext.dispatcher import run_async
 from telegram.error import BadRequest
 from telegram.utils.helpers import escape_markdown, mention_html
 
-from SaitamaRobot import (DEV_USERS, OWNER_ID, DRAGONS, DEMONS, TIGERS, WOLVES,
+from BoaHancockBOT import (STRAWHATS, PIRATE_KING_ID, YONKO, ADMIRALS, WARLORDS, VICE_ADMIRALS,
                           INFOPIC, dispatcher, sw)
-from SaitamaRobot.__main__ import STATS, TOKEN, USER_INFO
-import SaitamaRobot.modules.sql.userinfo_sql as sql
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from SaitamaRobot.modules.sql.global_bans_sql import is_user_gbanned
-from SaitamaRobot.modules.sql.afk_sql import is_afk, check_afk_status
-from SaitamaRobot.modules.sql.users_sql import get_user_num_chats
-from SaitamaRobot.modules.helper_funcs.chat_status import sudo_plus
-from SaitamaRobot.modules.helper_funcs.extraction import extract_user
-from SaitamaRobot import telethn as SaitamaTelethonClient, TIGERS, DRAGONS, DEMONS
+from BoaHancockBOT.__main__ import STATS, TOKEN, USER_INFO
+import BoaHancockBOT.modules.sql.userinfo_sql as sql
+from BoaHancockBOT.modules.disable import DisableAbleCommandHandler
+from BoaHancockBOT.modules.sql.global_bans_sql import is_user_gbanned
+from BoaHancockBOT.modules.sql.afk_sql import is_afk, check_afk_status
+from BoaHancockBOT.modules.sql.users_sql import get_user_num_chats
+from BoaHancockBOT.modules.helper_funcs.chat_status import sudo_plus
+from BoaHancockBOT.modules.helper_funcs.extraction import extract_user
+from BoaHancockBOT import telethn as BoaHancockTelethonClient, WARLORDS, YONKO, ADMIRALS
 
 
 def no_by_per(totalhp, percentage):
@@ -151,10 +151,10 @@ def get_id(update: Update, context: CallbackContext):
                 parse_mode=ParseMode.HTML)
 
 
-@SaitamaTelethonClient.on(
+@BoaHancockTelethonClient.on(
     events.NewMessage(
         pattern='/ginfo ',
-        from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or [])))
+        from_users=(WARLORDS or []) + (YONKO or []) + (ADMIRALS or [])))
 async def group_info(event) -> None:
     chat = event.text.split(' ', 1)[1]
     try:
@@ -224,9 +224,9 @@ def info(update: Update, context: CallbackContext):
         return
 
     rep = message.reply_text(
-        "<code>Finding Information In Akatsuki Databases...</code>", parse_mode=ParseMode.HTML)
+        "<code>Finding Information In Marines HeadQuaters[Marineford](secretly*)...</code>", parse_mode=ParseMode.HTML)
 
-    text = (f"╒═══「<b>Information Found In Akatsuki Databases:</b> 」\n"
+    text = (f"╒═══「<b>Information Found In Marines HeadQuaters:</b> 」\n"
             f"Identification Number: <code>{user.id}</code>\n"
             f"First Name: {html.escape(user.first_name)}")
 
@@ -270,27 +270,27 @@ def info(update: Update, context: CallbackContext):
 
     disaster_level_present = False
 
-    if user.id == OWNER_ID:
-        text += "\n\nThe Path level of this person is 'Deva'."
+    if user.id == PIRATE_KING_ID:
+        text += "\n\nThis person is the Future Pirate King My Love, kay!."
         disaster_level_present = True
-    elif user.id in DEV_USERS:
-        text += "\n\nThis user is member of 'Akatsuki Organization'."
+    elif user.id in STRAWHATS:
+        text += "\n\nThis user is member of StrawHats."
         disaster_level_present = True
-    elif user.id in DRAGONS:
-        text += "\n\nThe Path level of this person is 'Asura'."
+    elif user.id in YONKO:
+        text += "\n\nThis Person is One of The Yonkō."
         disaster_level_present = True
-    elif user.id in DEMONS:
-        text += "\n\nThe Path level of this person is 'Human'."
+    elif user.id in ADMIRALS:
+        text += "\n\nThis Person is an Marine Admiral."
         disaster_level_present = True
-    elif user.id in TIGERS:
-        text += "\n\nThe Path level of this person is 'Preta'."
+    elif user.id in WARLORDS:
+        text += "\n\nThis Person is a Warlord of The Sea."
         disaster_level_present = True
-    elif user.id in WOLVES:
-        text += "\n\nThe Path level of this person is 'Naraka'."
+    elif user.id in VICE_ADMIRALS:
+        text += "\n\nThis Person is an Marine Vice Admiral."
         disaster_level_present = True
 
     if disaster_level_present:
-        text += ' [<a href="https://t.me/PainRobotUpdates/6">?</a>]'.format(
+        text += ' [<a href="https://t.me/BoaHancockUpdates/6">?</a>]'.format(
             bot.username)
 
     try:
@@ -458,7 +458,7 @@ def set_about_bio(update: Update, context: CallbackContext):
 
         if user_id == bot.id and sender_id not in DEV_USERS:
             message.reply_text(
-                "Erm... yeah, I only trust Heroes Association to set my bio.")
+                "Erm... yeah, I only trust Strawhats to set my bio.")
             return
 
         text = message.text
@@ -514,7 +514,7 @@ Examples:
  • `/info`*:* get information about a user. 
  
 *What is that health thingy?*
- Come and see [HP System explained](https://t.me/OnePunchUpdates/192)
+ Come and see 
 """
 
 SET_BIO_HANDLER = DisableAbleCommandHandler("setbio", set_about_bio)
