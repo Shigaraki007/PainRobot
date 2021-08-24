@@ -3,15 +3,15 @@ from io import BytesIO
 import random
 from typing import Optional
 
-import SaitamaRobot.modules.sql.notes_sql as sql
-from SaitamaRobot import LOGGER, JOIN_LOGGER, SUPPORT_CHAT, dispatcher, DRAGONS
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from SaitamaRobot.modules.helper_funcs.handlers import MessageHandlerChecker
-from SaitamaRobot.modules.helper_funcs.chat_status import user_admin, connection_status
-from SaitamaRobot.modules.helper_funcs.misc import (build_keyboard,
+import BoaHancockBOT.modules.sql.notes_sql as sql
+from BoaHancockBOT import LOGGER, JOIN_LOGGER, SUPPORT_CHAT, dispatcher, YONKO as DRAGONS
+from BoaHancockBOT.modules.disable import DisableAbleCommandHandler
+from BoaHancockBOT.modules.helper_funcs.handlers import MessageHandlerChecker
+from BoaHancockBOT.modules.helper_funcs.chat_status import user_admin, connection_status
+from BoaHancockBOT.modules.helper_funcs.misc import (build_keyboard,
                                                     revert_buttons)
-from SaitamaRobot.modules.helper_funcs.msg_types import get_note_type
-from SaitamaRobot.modules.helper_funcs.string_handling import escape_invalid_curly_brackets
+from BoaHancockBOT.modules.helper_funcs.msg_types import get_note_type
+from BoaHancockBOT.modules.helper_funcs.string_handling import escape_invalid_curly_brackets
 from telegram import (MAX_MESSAGE_LENGTH, InlineKeyboardMarkup, Message,
                       ParseMode, Update, InlineKeyboardButton)
 from telegram.error import BadRequest
@@ -277,7 +277,7 @@ def clearall(update: Update, context: CallbackContext):
     chat = update.effective_chat
     user = update.effective_user
     member = chat.get_member(user.id)
-    if member.status != "creator" and user.id not in DRAGONS:
+    if member.status != "creator" and user.id not in YONKO:
         update.effective_message.reply_text(
             "Only the chat owner can clear all notes at once.")
     else:
@@ -298,7 +298,7 @@ def clearall_btn(update: Update, context: CallbackContext):
     message = update.effective_message
     member = chat.get_member(query.from_user.id)
     if query.data == 'notes_rmall':
-        if member.status == "creator" or query.from_user.id in DRAGONS:
+        if member.status == "creator" or query.from_user.id in YONKO:
             note_list = sql.get_all_chat_notes(chat.id)
             try:
                 for notename in note_list:
