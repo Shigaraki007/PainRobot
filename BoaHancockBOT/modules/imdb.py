@@ -1,11 +1,11 @@
-from SaitamaRobot import telethn as tbot
+from BoaHancockBOT import telethn as tbot
 import os
 import re
 import bs4
 import requests
 from telethon import types
 from telethon.tl import functions
-from SaitamaRobot.events import register
+from BoaHancockBOT.events import register
 
 langi = "en"
 
