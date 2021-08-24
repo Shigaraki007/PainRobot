@@ -1,16 +1,16 @@
 import html
 from typing import Optional
 
-from SaitamaRobot import LOGGER, TIGERS, dispatcher
-from SaitamaRobot.modules.helper_funcs.chat_status import (bot_admin,
+from BoaHancockBOT import LOGGER, WARLORDS, dispatcher
+from BoaHancockBOT.modules.helper_funcs.chat_status import (bot_admin,
                                                            can_restrict,
                                                            connection_status,
                                                            is_user_admin,
                                                            user_admin)
-from SaitamaRobot.modules.helper_funcs.extraction import (extract_user,
+from BoaHancockBOT.modules.helper_funcs.extraction import (extract_user,
                                                           extract_user_and_text)
-from SaitamaRobot.modules.helper_funcs.string_handling import extract_time
-from SaitamaRobot.modules.log_channel import loggable
+from BoaHancockBOT.modules.helper_funcs.string_handling import extract_time
+from BoaHancockBOT.modules.log_channel import loggable
 from telegram import Bot, Chat, ChatPermissions, ParseMode, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, run_async
@@ -35,7 +35,7 @@ def check_user(user_id: int, bot: Bot, chat: Chat) -> Optional[str]:
         reply = "I'm not gonna MUTE myself, How high are you?"
         return reply
 
-    if is_user_admin(chat, user_id, member) or user_id in TIGERS:
+    if is_user_admin(chat, user_id, member) or user_id in WARLORDS:
         reply = "Can't. Find someone else to mute but not this one."
         return reply
 
