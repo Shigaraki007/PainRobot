@@ -3,9 +3,9 @@ import re
 from typing import Optional
 
 import telegram
-from SaitamaRobot import TIGERS, WOLVES, dispatcher
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from SaitamaRobot.modules.helper_funcs.chat_status import (
+from BoaHancockBOT import WARLORDS, VICE_ADMIRALS, dispatcher
+from BoaHancockBOT.modules.disable import DisableAbleCommandHandler
+from BoaHancockBOT.modules.helper_funcs.chat_status import (
     bot_admin,
     can_restrict,
     is_user_admin,
@@ -13,16 +13,16 @@ from SaitamaRobot.modules.helper_funcs.chat_status import (
     user_admin_no_reply,
     can_delete,
 )
-from SaitamaRobot.modules.helper_funcs.extraction import (
+from BoaHancockBOT.modules.helper_funcs.extraction import (
     extract_text,
     extract_user,
     extract_user_and_text,
 )
-from SaitamaRobot.modules.helper_funcs.filters import CustomFilters
-from SaitamaRobot.modules.helper_funcs.misc import split_message
-from SaitamaRobot.modules.helper_funcs.string_handling import split_quotes
-from SaitamaRobot.modules.log_channel import loggable
-from SaitamaRobot.modules.sql import warns_sql as sql
+from BoaHancockBOT.modules.helper_funcs.filters import CustomFilters
+from BoaHancockBOT.modules.helper_funcs.misc import split_message
+from BoaHancockBOT.modules.helper_funcs.string_handling import split_quotes
+from BoaHancockBOT.modules.log_channel import loggable
+from BoaHancockBOT.modules.sql import warns_sql as sql
 from telegram import (
     CallbackQuery,
     Chat,
@@ -44,7 +44,7 @@ from telegram.ext import (
     run_async,
 )
 from telegram.utils.helpers import mention_html
-#from SaitamaRobot.modules.sql.approve_sql import is_approved
+#from BoaHancockBOT.modules.sql.approve_sql import is_approved
 
 WARN_HANDLER_GROUP = 9
 CURRENT_WARNING_FILTER_STRING = "<b>Current warning filters in this chat:</b>\n"
@@ -58,21 +58,21 @@ def warn(
         # message.reply_text("Damn admins, They are too far to be One Punched!")
         return
 
-    if user.id in TIGERS:
+    if user.id in WARLORDS:
         if warner:
-            message.reply_text("Tigers cant be warned.")
+            message.reply_text("Warlords cant be warned.")
         else:
             message.reply_text(
-                "Tiger triggered an auto warn filter!\n I can't warn tigers but they should avoid abusing this."
+                "Warlord triggered an auto warn filter!\n I can't warn Warlords but they should avoid abusing this."
             )
         return
 
-    if user.id in WOLVES:
+    if user.id in VICE_ADMIRALS:
         if warner:
-            message.reply_text("Naraka Paths are warn immune.")
+            message.reply_text("Vice Admirals are warn immune.")
         else:
             message.reply_text(
-                "Naraka Path triggered an auto warn filter!\nI can't warn Naraka Paths but they should avoid abusing this."
+                "Vice Admiral triggered an auto warn filter!\nI can't warn Vice Admirals but they should avoid abusing this."
             )
         return
 
@@ -440,7 +440,7 @@ def set_warn_strength(update: Update, context: CallbackContext):
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-                f"Has enabled strong warns. Users will be seriously punched.(banned)"
+                f"Has enabled strong warns. Conqueror's haki will be used on users.(banned)"
             )
 
         elif args[0].lower() in ("off", "no"):
@@ -451,7 +451,7 @@ def set_warn_strength(update: Update, context: CallbackContext):
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-                f"Has disabled strong pushes. I will use normal punch on users."
+                f"Has disabled strong pushes. I will use Aurnamental haki on users."
             )
 
         else:
