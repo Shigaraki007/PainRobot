@@ -13,12 +13,12 @@ from telegram import TelegramError, Update
 from telegram.ext import run_async, CallbackContext
 from telegram.utils.helpers import mention_html
 
-from SaitamaRobot import dispatcher
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from SaitamaRobot.events import register
-from SaitamaRobot import LOGGER
-from SaitamaRobot import TEMP_DOWNLOAD_DIRECTORY
-from SaitamaRobot import telethn as bot
+from BoaHancockBOT import dispatcher
+from BoaHancockBOT.modules.disable import DisableAbleCommandHandler
+from BoaHancockBOT.events import register
+from BoaHancockBOT import LOGGER
+from BoaHancockBOT import TEMP_DOWNLOAD_DIRECTORY
+from BoaHancockBOT import telethn as bot
 
 combot_stickers_url = "https://combot.org/telegram/stickers?q="
 
@@ -453,7 +453,7 @@ def makepack_internal(
             parse_mode=ParseMode.MARKDOWN,
         )
     else:
-        msg.reply_text("Failed to create sticker pack. Possibly due to blek mejik.")
+        msg.reply_text("Failed to create sticker pack. Possibly due to someone else using Haki.")
 
 Credit = "This Plugin Made by Kittu (@A_viyu), if you're using this code in your bot. there is no issue but don't remove this line" 
 
@@ -499,7 +499,7 @@ async def drawText(image_path, text):
     if os.name == "nt":
         fnt = "ariel.ttf"
     else:
-        fnt = "./SaitamaRobot/resources/EnclaveDemoRegular.ttf"
+        fnt = "./BoaHancockBOT/resources/EnclaveDemoRegular.ttf"
     m_font = ImageFont.truetype(fnt, int((70 / 640) * i_width))
     if ";" in text:
         upper_text, lower_text = text.split(";")
