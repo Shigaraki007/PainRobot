@@ -1,8 +1,8 @@
-from SaitamaRobot import pbot as PAIN
-from SaitamaRobot.utlis.errors import capture_err
-from SaitamaRobot.modules.mongo.karma_mongo import (update_karma, get_karma, get_karmas,
+from BoaHancockBOT import pbot as BOA
+from BoaHancockBOT.utlis.errors import capture_err
+from BoaHancockBOT.modules.mongo.karma_mongo import (update_karma, get_karma, get_karmas,
                                    int_to_alpha, alpha_to_int)
-from SaitamaRobot.utlis.filter_groups import karma_positive_group, karma_negative_group
+from BoaHancockBOT.utlis.filter_groups import karma_positive_group, karma_negative_group
 from pyrogram import filters
 
 
@@ -10,7 +10,7 @@ regex_upvote = r"^((?i)\+|\+\+|\+1|thx|tnx|ty|thank you|thanx|thanks|pro|cool|go
 regex_downvote = r"^(\-|\-\-|\-1|👎|noob|Noob|gross|fuck off|Bhakk|Abe Saale|Tauba|Tauba Tauba Tuba Saara Mood Kharab Kardiya)$"
 
 
-@PAIN.on_message(
+@BOA.on_message(
     filters.text
     & filters.group
     & filters.incoming
@@ -43,7 +43,7 @@ async def upvote(_, message):
     )
 
 
-@PAIN.on_message(
+@BOA.on_message(
     filters.text
     & filters.group
     & filters.incoming
@@ -76,7 +76,7 @@ async def downvote(_, message):
     )
 
 
-@PAIN.on_message(filters.command("karma") & filters.group)
+@BOA.on_message(filters.command("karma") & filters.group)
 @capture_err
 async def karma(_, message):
     chat_id = message.chat.id
@@ -96,7 +96,7 @@ async def karma(_, message):
             if limit > 9:
                 break
             try:
-                user_name = (await EREN.get_users(int(user_idd))).username
+                user_name = (await BOA.get_users(int(user_idd))).username
             except Exception:
                 continue
             msg += f"{user_name} : `{karma_count}`\n"
